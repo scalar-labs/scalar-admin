@@ -4,8 +4,8 @@ plugins {
     id 'idea'
     id 'application'
     id 'java-library-distribution'
-    id "com.google.protobuf" version "0.8.8"
-    id "com.github.johnrengelman.shadow" version "6.1.0"
+    id 'com.google.protobuf' version '0.8.8'
+    id 'com.github.johnrengelman.shadow' version '6.1.0'
 }
 startScripts.enabled = false
 
