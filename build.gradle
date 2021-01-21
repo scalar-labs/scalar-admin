@@ -1,18 +1,12 @@
-buildscript {
-    repositories {
-        mavenCentral()
-    }
-    dependencies {
-        classpath 'com.google.protobuf:protobuf-gradle-plugin:0.8.8'
-    }
+plugins {
+    id 'java'
+    id 'eclipse'
+    id 'idea'
+    id 'application'
+    id 'java-library-distribution'
+    id 'com.google.protobuf' version '0.8.8'
+    id 'com.github.johnrengelman.shadow' version '6.1.0'
 }
-
-apply plugin: 'java'
-apply plugin: 'eclipse'
-apply plugin: 'idea'
-apply plugin: 'application'
-apply plugin: 'java-library-distribution'
-apply plugin: 'com.google.protobuf'
 startScripts.enabled = false
 
 repositories {
@@ -70,6 +64,22 @@ application {
     mainClassName = 'com.scalar.admin.AdminCommand'
 }
 
+task sourcesJar(type: Jar) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+task javadocJar(type: Jar) {
+    classifier = 'javadoc'
+    from javadoc
+}
+
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
+group = "com.scalar-labs"
+archivesBaseName = "scalar-admin"
+version = "1.0.0"
+
+// for archiving and uploading to maven central
+//apply from: 'archive.gradle'
