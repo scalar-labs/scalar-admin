@@ -74,6 +74,10 @@ task javadocJar(type: Jar) {
     from javadoc
 }
 
+shadowJar {
+    mergeServiceFiles()
+}
+
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
