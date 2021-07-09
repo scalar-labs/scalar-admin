@@ -35,9 +35,7 @@ public class AdminCommand implements Callable<Integer> {
 
   @CommandLine.Option(
       names = {"--wait-outstanding", "-w"},
-      required = false,
-      defaultValue = "true",
-      paramLabel = "WAIT_OUTSTANDING",
+      defaultValue = "false",
       description =
           "A flag to specify if PAUSE command waits for termination of outstanding requests.")
   private boolean waitOutstanding;
