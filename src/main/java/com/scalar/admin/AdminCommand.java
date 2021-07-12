@@ -34,11 +34,11 @@ public class AdminCommand implements Callable<Integer> {
   private String srvServiceUrl;
 
   @CommandLine.Option(
-      names = {"--wait-outstanding", "-w"},
+      names = {"--no-wait", "-n"},
       defaultValue = "false",
       description =
           "A flag to specify if PAUSE command waits for termination of outstanding requests.")
-  private boolean waitOutstanding;
+  private boolean noWait;
 
   @CommandLine.Option(
       names = {"-h", "--help"},
@@ -57,7 +57,7 @@ public class AdminCommand implements Callable<Integer> {
     RequestCoordinator coordinator = new RequestCoordinator(srvServiceUrl);
     switch (command) {
       case PAUSE:
-        coordinator.pause(waitOutstanding);
+        coordinator.pause(!noWait);
         System.out.println("Pause completed at " + getCurrentTimeWithFormat());
         break;
       case UNPAUSE:
