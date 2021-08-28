@@ -15,6 +15,7 @@ import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 import java.util.function.Function;
+import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 import javax.json.Json;
 import javax.json.JsonObject;
@@ -36,8 +37,8 @@ public class RequestCoordinator {
     this.srvServiceUrl = srvServiceUrl;
   }
 
-  public void pause(boolean waitOutstanding) {
-    run(client -> client.pause(waitOutstanding));
+  public void pause(boolean waitOutstanding, @Nullable Long maxPauseWaitTime) {
+    run(client -> client.pause(waitOutstanding, maxPauseWaitTime));
   }
 
   public void unpause() {

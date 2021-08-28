@@ -12,4 +12,15 @@ public interface PauseRequestOrBuilder extends
    * @return The waitOutstanding.
    */
   boolean getWaitOutstanding();
+
+  /**
+   * <code>optional int64 max_pause_wait_time = 2;</code>
+   * @return Whether the maxPauseWaitTime field is set.
+   */
+  boolean hasMaxPauseWaitTime();
+  /**
+   * <code>optional int64 max_pause_wait_time = 2;</code>
+   * @return The maxPauseWaitTime.
+   */
+  long getMaxPauseWaitTime();
 }

@@ -9,6 +9,7 @@ import io.grpc.ManagedChannelBuilder;
 import java.io.Closeable;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
+import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
 @Immutable
@@ -21,10 +22,13 @@ public class AdminClient implements Closeable {
     this.blockingStub = AdminGrpc.newBlockingStub(channel);
   }
 
-  public Optional<String> pause(boolean waitOutstanding) {
-    PauseRequest request = PauseRequest.newBuilder().setWaitOutstanding(waitOutstanding).build();
+  public Optional<String> pause(boolean waitOutstanding, @Nullable Long maxPauseWaitTime) {
+    PauseRequest.Builder builder = PauseRequest.newBuilder().setWaitOutstanding(waitOutstanding);
+    if (maxPauseWaitTime != null) {
+      builder.setMaxPauseWaitTime(maxPauseWaitTime);
+    }
     try {
-      blockingStub.pause(request);
+      blockingStub.pause(builder.build());
       return Optional.empty();
     } catch (Exception e) {
       throw new AdminException("pause failed.", e);

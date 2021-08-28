@@ -1,25 +1,13 @@
 package com.scalar.admin.rpc;
 
 import static io.grpc.MethodDescriptor.generateFullMethodName;
-import static io.grpc.stub.ClientCalls.asyncBidiStreamingCall;
-import static io.grpc.stub.ClientCalls.asyncClientStreamingCall;
-import static io.grpc.stub.ClientCalls.asyncServerStreamingCall;
-import static io.grpc.stub.ClientCalls.asyncUnaryCall;
-import static io.grpc.stub.ClientCalls.blockingServerStreamingCall;
-import static io.grpc.stub.ClientCalls.blockingUnaryCall;
-import static io.grpc.stub.ClientCalls.futureUnaryCall;
-import static io.grpc.stub.ServerCalls.asyncBidiStreamingCall;
-import static io.grpc.stub.ServerCalls.asyncClientStreamingCall;
-import static io.grpc.stub.ServerCalls.asyncServerStreamingCall;
-import static io.grpc.stub.ServerCalls.asyncUnaryCall;
-import static io.grpc.stub.ServerCalls.asyncUnimplementedStreamingCall;
-import static io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall;
 
 /**
  */
 @javax.annotation.Generated(
-    value = "by gRPC proto compiler (version 1.31.1)",
+    value = "by gRPC proto compiler (version 1.40.1)",
     comments = "Source: scalar/protobuf/admin.proto")
+@io.grpc.stub.annotations.GrpcGenerated
 public final class AdminGrpc {
 
   private AdminGrpc() {}
@@ -172,42 +160,42 @@ public final class AdminGrpc {
      */
     public void pause(com.scalar.admin.rpc.PauseRequest request,
         io.grpc.stub.StreamObserver<com.google.protobuf.Empty> responseObserver) {
-      asyncUnimplementedUnaryCall(getPauseMethod(), responseObserver);
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getPauseMethod(), responseObserver);
     }
 
     /**
      */
     public void unpause(com.google.protobuf.Empty request,
         io.grpc.stub.StreamObserver<com.google.protobuf.Empty> responseObserver) {
-      asyncUnimplementedUnaryCall(getUnpauseMethod(), responseObserver);
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getUnpauseMethod(), responseObserver);
     }
 
     /**
      */
     public void stats(com.google.protobuf.Empty request,
         io.grpc.stub.StreamObserver<com.scalar.admin.rpc.StatsResponse> responseObserver) {
-      asyncUnimplementedUnaryCall(getStatsMethod(), responseObserver);
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getStatsMethod(), responseObserver);
     }
 
     @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
       return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
           .addMethod(
             getPauseMethod(),
-            asyncUnaryCall(
+            io.grpc.stub.ServerCalls.asyncUnaryCall(
               new MethodHandlers<
                 com.scalar.admin.rpc.PauseRequest,
                 com.google.protobuf.Empty>(
                   this, METHODID_PAUSE)))
           .addMethod(
             getUnpauseMethod(),
-            asyncUnaryCall(
+            io.grpc.stub.ServerCalls.asyncUnaryCall(
               new MethodHandlers<
                 com.google.protobuf.Empty,
                 com.google.protobuf.Empty>(
                   this, METHODID_UNPAUSE)))
           .addMethod(
             getStatsMethod(),
-            asyncUnaryCall(
+            io.grpc.stub.ServerCalls.asyncUnaryCall(
               new MethodHandlers<
                 com.google.protobuf.Empty,
                 com.scalar.admin.rpc.StatsResponse>(
@@ -234,7 +222,7 @@ public final class AdminGrpc {
      */
     public void pause(com.scalar.admin.rpc.PauseRequest request,
         io.grpc.stub.StreamObserver<com.google.protobuf.Empty> responseObserver) {
-      asyncUnaryCall(
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
           getChannel().newCall(getPauseMethod(), getCallOptions()), request, responseObserver);
     }
 
@@ -242,7 +230,7 @@ public final class AdminGrpc {
      */
     public void unpause(com.google.protobuf.Empty request,
         io.grpc.stub.StreamObserver<com.google.protobuf.Empty> responseObserver) {
-      asyncUnaryCall(
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
           getChannel().newCall(getUnpauseMethod(), getCallOptions()), request, responseObserver);
     }
 
@@ -250,7 +238,7 @@ public final class AdminGrpc {
      */
     public void stats(com.google.protobuf.Empty request,
         io.grpc.stub.StreamObserver<com.scalar.admin.rpc.StatsResponse> responseObserver) {
-      asyncUnaryCall(
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
           getChannel().newCall(getStatsMethod(), getCallOptions()), request, responseObserver);
     }
   }
@@ -272,21 +260,21 @@ public final class AdminGrpc {
     /**
      */
     public com.google.protobuf.Empty pause(com.scalar.admin.rpc.PauseRequest request) {
-      return blockingUnaryCall(
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getPauseMethod(), getCallOptions(), request);
     }
 
     /**
      */
     public com.google.protobuf.Empty unpause(com.google.protobuf.Empty request) {
-      return blockingUnaryCall(
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getUnpauseMethod(), getCallOptions(), request);
     }
 
     /**
      */
     public com.scalar.admin.rpc.StatsResponse stats(com.google.protobuf.Empty request) {
-      return blockingUnaryCall(
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getStatsMethod(), getCallOptions(), request);
     }
   }
@@ -309,7 +297,7 @@ public final class AdminGrpc {
      */
     public com.google.common.util.concurrent.ListenableFuture<com.google.protobuf.Empty> pause(
         com.scalar.admin.rpc.PauseRequest request) {
-      return futureUnaryCall(
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
           getChannel().newCall(getPauseMethod(), getCallOptions()), request);
     }
 
@@ -317,7 +305,7 @@ public final class AdminGrpc {
      */
     public com.google.common.util.concurrent.ListenableFuture<com.google.protobuf.Empty> unpause(
         com.google.protobuf.Empty request) {
-      return futureUnaryCall(
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
           getChannel().newCall(getUnpauseMethod(), getCallOptions()), request);
     }
 
@@ -325,7 +313,7 @@ public final class AdminGrpc {
      */
     public com.google.common.util.concurrent.ListenableFuture<com.scalar.admin.rpc.StatsResponse> stats(
         com.google.protobuf.Empty request) {
-      return futureUnaryCall(
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
           getChannel().newCall(getStatsMethod(), getCallOptions()), request);
     }
   }

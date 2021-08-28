@@ -41,6 +41,11 @@ public class AdminCommand implements Callable<Integer> {
   private boolean noWait;
 
   @CommandLine.Option(
+      names = {"--max-pause-wait-time", "-m"},
+      description = "A max pause wait time in milliseconds.")
+  private Long maxPauseWaitTime;
+
+  @CommandLine.Option(
       names = {"-h", "--help"},
       usageHelp = true,
       description = "display the help message.")
@@ -57,7 +62,7 @@ public class AdminCommand implements Callable<Integer> {
     RequestCoordinator coordinator = new RequestCoordinator(srvServiceUrl);
     switch (command) {
       case PAUSE:
-        coordinator.pause(!noWait);
+        coordinator.pause(!noWait, maxPauseWaitTime);
         System.out.println("Pause completed at " + getCurrentTimeWithFormat());
         break;
       case UNPAUSE:

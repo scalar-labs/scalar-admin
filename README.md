@@ -13,7 +13,7 @@ You can also build the tool as follows.
 
 ```console
 $ ./gradlew installDist
-$ build/install/admin/bin/scalar-admin
+$ build/install/scalar-admin/bin/scalar-admin
 ```
 
 ## Implement server-side code
