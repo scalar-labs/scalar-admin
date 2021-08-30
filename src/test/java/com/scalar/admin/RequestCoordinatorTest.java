@@ -24,12 +24,13 @@ import org.xbill.DNS.SRVRecord;
 import org.xbill.DNS.TextParseException;
 
 public class RequestCoordinatorTest {
-  private final String SRV_SERVICE_URL = "srv_service_url.";
-  private final String APP_IP1 = "ip1";
-  private final String APP_IP2 = "ip2";
-  private final String APP_IP3 = "ip3";
-  private final String JSON_RESULT = "{\"total_succeeded\": 10}";
-  private final int PORT = 50051;
+  private static final String SRV_SERVICE_URL = "srv_service_url.";
+  private static final String APP_IP1 = "ip1";
+  private static final String APP_IP2 = "ip2";
+  private static final String APP_IP3 = "ip3";
+  private static final String JSON_RESULT = "{\"total_succeeded\": 10}";
+  private static final int PORT = 50051;
+  private static final long MAX_PAUSE_WAIT_TIME = 30000L;
   private RequestCoordinator coordinator;
 
   @Before
@@ -60,15 +61,15 @@ public class RequestCoordinatorTest {
     when(coordinator.getClient(APP_IP3, PORT)).thenReturn(client3);
 
     // Act
-    coordinator.pause(true);
+    coordinator.pause(true, MAX_PAUSE_WAIT_TIME);
 
     // Assert
     verify(coordinator).getClient(APP_IP1, PORT);
-    verify(client1).pause(true);
+    verify(client1).pause(true, MAX_PAUSE_WAIT_TIME);
     verify(coordinator).getClient(APP_IP2, PORT);
-    verify(client2).pause(true);
+    verify(client2).pause(true, MAX_PAUSE_WAIT_TIME);
     verify(coordinator).getClient(APP_IP3, PORT);
-    verify(client3).pause(true);
+    verify(client3).pause(true, MAX_PAUSE_WAIT_TIME);
   }
 
   @Test
@@ -79,14 +80,15 @@ public class RequestCoordinatorTest {
     AdminClient client1 = mock(AdminClient.class);
     when(coordinator.getClient(APP_IP1, PORT)).thenReturn(client1);
     RuntimeException toThrow = mock(RuntimeException.class);
-    doThrow(toThrow).when(client1).pause(true);
+    doThrow(toThrow).when(client1).pause(true, MAX_PAUSE_WAIT_TIME);
     AdminClient client2 = mock(AdminClient.class);
     when(coordinator.getClient(APP_IP2, PORT)).thenReturn(client2);
     AdminClient client3 = mock(AdminClient.class);
     when(coordinator.getClient(APP_IP3, PORT)).thenReturn(client3);
 
     // Act Assert
-    assertThatThrownBy(() -> coordinator.pause(true)).isInstanceOf(AdminException.class);
+    assertThatThrownBy(() -> coordinator.pause(true, MAX_PAUSE_WAIT_TIME))
+        .isInstanceOf(AdminException.class);
   }
 
   @Test
@@ -159,9 +161,9 @@ public class RequestCoordinatorTest {
     JsonObject result = Json.createReader(new StringReader(JSON_RESULT)).readObject();
     JsonObject expected =
         Json.createObjectBuilder()
-            .add(APP_IP1, result)
-            .add(APP_IP2, result)
-            .add(APP_IP3, result)
+            .add(APP_IP1 + ":" + PORT, result)
+            .add(APP_IP2 + ":" + PORT, result)
+            .add(APP_IP3 + ":" + PORT, result)
             .build();
     assertThat(actual).isEqualTo(expected);
   }

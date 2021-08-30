@@ -38,6 +38,7 @@ private static final long serialVersionUID = 0L;
     if (extensionRegistry == null) {
       throw new java.lang.NullPointerException();
     }
+    int mutable_bitField0_ = 0;
     com.google.protobuf.UnknownFieldSet.Builder unknownFields =
         com.google.protobuf.UnknownFieldSet.newBuilder();
     try {
@@ -51,6 +52,11 @@ private static final long serialVersionUID = 0L;
           case 8: {
 
             waitOutstanding_ = input.readBool();
+            break;
+          }
+          case 16: {
+            bitField0_ |= 0x00000001;
+            maxPauseWaitTime_ = input.readInt64();
             break;
           }
           default: {
@@ -85,6 +91,7 @@ private static final long serialVersionUID = 0L;
             com.scalar.admin.rpc.PauseRequest.class, com.scalar.admin.rpc.PauseRequest.Builder.class);
   }
 
+  private int bitField0_;
   public static final int WAIT_OUTSTANDING_FIELD_NUMBER = 1;
   private boolean waitOutstanding_;
   /**
@@ -94,6 +101,25 @@ private static final long serialVersionUID = 0L;
   @java.lang.Override
   public boolean getWaitOutstanding() {
     return waitOutstanding_;
+  }
+
+  public static final int MAX_PAUSE_WAIT_TIME_FIELD_NUMBER = 2;
+  private long maxPauseWaitTime_;
+  /**
+   * <code>optional int64 max_pause_wait_time = 2;</code>
+   * @return Whether the maxPauseWaitTime field is set.
+   */
+  @java.lang.Override
+  public boolean hasMaxPauseWaitTime() {
+    return ((bitField0_ & 0x00000001) != 0);
+  }
+  /**
+   * <code>optional int64 max_pause_wait_time = 2;</code>
+   * @return The maxPauseWaitTime.
+   */
+  @java.lang.Override
+  public long getMaxPauseWaitTime() {
+    return maxPauseWaitTime_;
   }
 
   private byte memoizedIsInitialized = -1;
@@ -113,6 +139,9 @@ private static final long serialVersionUID = 0L;
     if (waitOutstanding_ != false) {
       output.writeBool(1, waitOutstanding_);
     }
+    if (((bitField0_ & 0x00000001) != 0)) {
+      output.writeInt64(2, maxPauseWaitTime_);
+    }
     unknownFields.writeTo(output);
   }
 
@@ -125,6 +154,10 @@ private static final long serialVersionUID = 0L;
     if (waitOutstanding_ != false) {
       size += com.google.protobuf.CodedOutputStream
         .computeBoolSize(1, waitOutstanding_);
+    }
+    if (((bitField0_ & 0x00000001) != 0)) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeInt64Size(2, maxPauseWaitTime_);
     }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
@@ -143,6 +176,11 @@ private static final long serialVersionUID = 0L;
 
     if (getWaitOutstanding()
         != other.getWaitOutstanding()) return false;
+    if (hasMaxPauseWaitTime() != other.hasMaxPauseWaitTime()) return false;
+    if (hasMaxPauseWaitTime()) {
+      if (getMaxPauseWaitTime()
+          != other.getMaxPauseWaitTime()) return false;
+    }
     if (!unknownFields.equals(other.unknownFields)) return false;
     return true;
   }
@@ -157,6 +195,11 @@ private static final long serialVersionUID = 0L;
     hash = (37 * hash) + WAIT_OUTSTANDING_FIELD_NUMBER;
     hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
         getWaitOutstanding());
+    if (hasMaxPauseWaitTime()) {
+      hash = (37 * hash) + MAX_PAUSE_WAIT_TIME_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getMaxPauseWaitTime());
+    }
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
     return hash;
@@ -292,6 +335,8 @@ private static final long serialVersionUID = 0L;
       super.clear();
       waitOutstanding_ = false;
 
+      maxPauseWaitTime_ = 0L;
+      bitField0_ = (bitField0_ & ~0x00000001);
       return this;
     }
 
@@ -318,7 +363,14 @@ private static final long serialVersionUID = 0L;
     @java.lang.Override
     public com.scalar.admin.rpc.PauseRequest buildPartial() {
       com.scalar.admin.rpc.PauseRequest result = new com.scalar.admin.rpc.PauseRequest(this);
+      int from_bitField0_ = bitField0_;
+      int to_bitField0_ = 0;
       result.waitOutstanding_ = waitOutstanding_;
+      if (((from_bitField0_ & 0x00000001) != 0)) {
+        result.maxPauseWaitTime_ = maxPauseWaitTime_;
+        to_bitField0_ |= 0x00000001;
+      }
+      result.bitField0_ = to_bitField0_;
       onBuilt();
       return result;
     }
@@ -370,6 +422,9 @@ private static final long serialVersionUID = 0L;
       if (other.getWaitOutstanding() != false) {
         setWaitOutstanding(other.getWaitOutstanding());
       }
+      if (other.hasMaxPauseWaitTime()) {
+        setMaxPauseWaitTime(other.getMaxPauseWaitTime());
+      }
       this.mergeUnknownFields(other.unknownFields);
       onChanged();
       return this;
@@ -398,6 +453,7 @@ private static final long serialVersionUID = 0L;
       }
       return this;
     }
+    private int bitField0_;
 
     private boolean waitOutstanding_ ;
     /**
@@ -426,6 +482,45 @@ private static final long serialVersionUID = 0L;
     public Builder clearWaitOutstanding() {
       
       waitOutstanding_ = false;
+      onChanged();
+      return this;
+    }
+
+    private long maxPauseWaitTime_ ;
+    /**
+     * <code>optional int64 max_pause_wait_time = 2;</code>
+     * @return Whether the maxPauseWaitTime field is set.
+     */
+    @java.lang.Override
+    public boolean hasMaxPauseWaitTime() {
+      return ((bitField0_ & 0x00000001) != 0);
+    }
+    /**
+     * <code>optional int64 max_pause_wait_time = 2;</code>
+     * @return The maxPauseWaitTime.
+     */
+    @java.lang.Override
+    public long getMaxPauseWaitTime() {
+      return maxPauseWaitTime_;
+    }
+    /**
+     * <code>optional int64 max_pause_wait_time = 2;</code>
+     * @param value The maxPauseWaitTime to set.
+     * @return This builder for chaining.
+     */
+    public Builder setMaxPauseWaitTime(long value) {
+      bitField0_ |= 0x00000001;
+      maxPauseWaitTime_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>optional int64 max_pause_wait_time = 2;</code>
+     * @return This builder for chaining.
+     */
+    public Builder clearMaxPauseWaitTime() {
+      bitField0_ = (bitField0_ & ~0x00000001);
+      maxPauseWaitTime_ = 0L;
       onChanged();
       return this;
     }

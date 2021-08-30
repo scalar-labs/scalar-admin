@@ -19,6 +19,7 @@ service Admin {
 
 message PauseRequest {
     bool wait_outstanding = 1;
+    optional int64 max_pause_wait_time = 2;
 }
 
 message StatsResponse {
