@@ -74,6 +74,16 @@ task javadocJar(type: Jar) {
     from javadoc
 }
 
+distZip {
+    archiveFileName = "${project.name}.zip"
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
+
+distTar {
+    archiveFileName = "${project.name}.tar"
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
+
 shadowJar {
     mergeServiceFiles()
 }
