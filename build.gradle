@@ -6,6 +6,7 @@ plugins {
     id 'java-library-distribution'
     id 'com.google.protobuf' version '0.8.8'
     id 'com.github.johnrengelman.shadow' version '6.1.0'
+    id 'com.palantir.docker' version '0.25.0'
 }
 startScripts.enabled = false
 
@@ -82,6 +83,11 @@ distZip {
 distTar {
     archiveFileName = "${project.name}.tar"
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
+
+docker {
+    name "${project.name}"
+    files tasks.distTar.outputs
 }
 
 shadowJar {

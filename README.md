@@ -1,6 +1,7 @@
 # scalar-admin
 
-scalar-admin is an admin interface and client tool for Scalar services such as [Scalar DL](https://github.com/scalar-labs/scalardl) and [Scalar DB](https://github.com/scalar-labs/scalardb) applications.
+scalar-admin is an admin interface and client tool for Scalar services such as [Scalar DL](https://github.com/scalar-labs/scalardl) and [Scalar DB](https://github.com/scalar-labs/scalardb) applications. 
+It will help you to `PAUSE` and `UNPAUSE` the ledger to create point-in-time recovery (PITR). 
 
 ## Use the client-side tool
 
@@ -15,6 +16,18 @@ You can also build the tool as follows.
 $ ./gradlew installDist
 $ build/install/scalar-admin/bin/scalar-admin
 ```
+
+## Containerize the client-side tool
+
+You can create a build to containerize the scalar-admin tool as follows.
+
+```console
+$ cd scalar-admin
+$ ./gradlew docker
+```
+
+You can create a docker build from the `build/docker` directory.
+
 
 ## Implement server-side code
 
