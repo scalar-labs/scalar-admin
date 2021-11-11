@@ -5,17 +5,25 @@ It will help you to `PAUSE` and `UNPAUSE` the ledger to create point-in-time rec
 
 ## Use the client-side tool
 
-To access scalar-admin integrated applications, you can use the fat jar `scalar-admin-<version>-all.jar` found in [releases](https://github.com/scalar-labs/scalar-admin/releases) as follows.
-```console
-$ java -jar scalar-admin-<version>-all.jar
-```
-
-You can also build the tool as follows.
+To access scalar-admin integrated applications, you can use the fat jar `scalar-admin-<version>-all.jar` found in [releases](https://github.com/scalar-labs/scalar-admin/releases) as follows
 
 ```console
-$ ./gradlew installDist
-$ build/install/scalar-admin/bin/scalar-admin
+$ java -jar scalar-admin-<version>-all.jar -c <Command> -s <SRV_Service_URL>
 ```
+
+You can use the scalar-admin docker container as follows
+
+```console
+$ docker run -it --rm ghcr.io/scalar-labs/scalar-admin:<version> -c <Command> -s <SRV_Service_URL>
+```
+
+You can use the scalar-admin docker container on kubernetes as follows
+
+```console
+$ kubectl run --image=ghcr.io/scalar-labs/scalar-admin:<version> --restart=Never --rm  -i scalarAdmin -- -c <Command> -s <SRV_Service_URL>
+```
+
+Note:- Commands are `PAUSE`, `UNPAUSE` and `STATS`.
 
 ## Containerize the client-side tool
 
