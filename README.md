@@ -11,13 +11,13 @@ To access scalar-admin integrated applications, you can use the fat jar `scalar-
 $ java -jar scalar-admin-<version>-all.jar -c <Command> -s <SRV_Service_URL>
 ```
 
-You can use the scalar-admin docker container as follows
+If you want to use the scalar-admin docker container, you can do it as follows.
 
 ```console
 $ docker run -it --rm ghcr.io/scalar-labs/scalar-admin:<version> -c <Command> -s <SRV_Service_URL>
 ```
 
-You can use the scalar-admin docker container on kubernetes as follows
+If you want to use the scalar-admin docker container on kubernetes, you can do it as follows.
 
 ```console
 $ kubectl run --image=ghcr.io/scalar-labs/scalar-admin:<version> --restart=Never --rm  -i scalarAdmin -- -c <Command> -s <SRV_Service_URL>
@@ -27,15 +27,11 @@ Note:- Commands are `PAUSE`, `UNPAUSE` and `STATS`.
 
 ## Containerize the client-side tool
 
-You can create a build to containerize the scalar-admin tool as follows.
+If you want to create a docker container, you can do it as follows.
 
 ```console
-$ cd scalar-admin
 $ ./gradlew docker
 ```
-
-You can create a docker build from the `build/docker` directory.
-
 
 ## Implement server-side code
 
