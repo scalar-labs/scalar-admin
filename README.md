@@ -5,7 +5,7 @@ It will help you to `PAUSE` and `UNPAUSE` the ledger to create point-in-time rec
 
 ## Client-side tool
 
-The scalar-admin client tool is used to manage the application which is implemented the admin interface.
+The scalar-admin client tool is used to manage the admin interface implemented applications.
 It will help to `PAUSE` and `UNPAUSE` the application without losing the transaction.
 
 ### Installation
