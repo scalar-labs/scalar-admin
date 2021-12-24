@@ -3,7 +3,7 @@
 scalar-admin is an admin interface and client tool for Scalar services such as [Scalar DL](https://github.com/scalar-labs/scalardl) and [Scalar DB](https://github.com/scalar-labs/scalardb) applications. 
 It will help you to `PAUSE` and `UNPAUSE` the ledger to create point-in-time recovery (PITR). 
 
-## Client-side tool
+## scalar-admin client tool
 
 The scalar-admin client tool is used to manage the admin interface implemented applications.
 It will help to `PAUSE` and `UNPAUSE` the application without losing the transaction.
