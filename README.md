@@ -75,6 +75,8 @@ Execute an admin command for applications that implement scalar admin interface.
 $ java -jar scalar-admin-<version>-all.jar -c <COMMAND> -s <SRV_SERVICE_URL>
 ```
 
+Note:- Commands are `PAUSE`, `UNPAUSE` and `STATS`.
+
 ## Implement server-side code
 
 To make your services accessible from scalar-admin tool, you need to implement server-side code based on the admin interface defined in [admin.proto](src/main/proto/scalar/protobuf/admin.proto).
