@@ -39,7 +39,7 @@ $ docker run -it --rm ghcr.io/scalar-labs/scalar-admin:<version> <command_argume
 If you want to use the `scalar-admin` container on kubernetes, you can do it as follows.
 
 ```console
-$ kubectl run <NAME> -i --image=ghcr.io/scalar-labs/scalar-admin:<version> --restart=Never --rm -- <command_arguments>
+$ kubectl run <NAME> -it --image=ghcr.io/scalar-labs/scalar-admin:<version> --restart=Never --rm -- <command_arguments>
 ```
 
 * Note that you can specify the same command arguments even if you use the fat jar or the container.
