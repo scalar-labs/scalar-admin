@@ -44,7 +44,7 @@ $ kubectl run <NAME> -it --image=ghcr.io/scalar-labs/scalar-admin:<version> --re
 
 * Note that you can specify the same command arguments even if you use the fat jar or the container.
 The example commands in the next section are shown with a jar, but you can run the commands with the container in the same way by replacing
-`java -jar scalar-admin-<version>-all.jar` with `docker run -it --rm ghcr.io/scalar-labs/scalar-admin:<version>` or `kubectl run <NAME> -i --image=ghcr.io/scalar-labs/scalar-admin:<version> --restart=Never --rm --`
+`java -jar scalar-admin-<version>-all.jar` with `docker run -it --rm ghcr.io/scalar-labs/scalar-admin:<version>` or `kubectl run <NAME> -it --image=ghcr.io/scalar-labs/scalar-admin:<version> --restart=Never --rm --`
 
 In case you want to build the docker image from the source:
 
