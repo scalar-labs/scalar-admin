@@ -1,22 +1,23 @@
 # scalar-admin
 
 scalar-admin is an admin interface and client tool for Scalar services such as [Scalar DL](https://github.com/scalar-labs/scalardl) and [Scalar DB](https://github.com/scalar-labs/scalardb) applications. 
-It will help you to `PAUSE` and `UNPAUSE` the ledger to create point-in-time recovery (PITR). 
+It will help you to pause Scalar DL Ledger cluster or Scalar DB server cluster to create a transactionally-consistent backup.
 
 ## scalar-admin client tool
 
-The scalar-admin client tool is used to manage the admin interface implemented applications.
-It will help to `PAUSE` and `UNPAUSE` the application without losing the transaction.
+As of the current implementation, the scalar-admin client tool is mainly used to pause (and unpause) the cluster of applications that implement the admin interface.
 
-### Usage
+### Install
 
-You can manage the scalar-admin integrated applications in the following ways
-
-#### Install
+#### Fat jar
 
 The release versions of `scalar-admin` fat jar can be downloaded from [releases](https://github.com/scalar-labs/scalar-admin/releases) page of Scalar Admin.
 
-#### Build
+#### Docker container
+
+You can pull the docker image from [Scalar's container registry](https://github.com/orgs/scalar-labs/packages/container/package/scalar-admin).
+
+#### Build from sources
 
 In case you want to build `scalar-admin` fat jar from the source:
 
@@ -26,56 +27,37 @@ $ ./gradlew shadowJar
 
 * The built fat jar file is `build/libs/scalar-admin-<version>-all.jar`
 
-#### Container
-
-You can pull the docker image from [Scalar's container registry](https://github.com/orgs/scalar-labs/packages/container/package/scalar-admin).
-
-If you want to use the `scalar-admin` container, you can do it as follows.
-
-```console
-$ docker run -it --rm ghcr.io/scalar-labs/scalar-admin:<version> <command_arguments>
-```
-
-If you want to use the `scalar-admin` container on kubernetes, you can do it as follows.
-
-```console
-$ kubectl run <NAME> -it --image=ghcr.io/scalar-labs/scalar-admin:<version> --restart=Never --rm -- <command_arguments>
-```
-
-* Note that you can specify the same command arguments even if you use the fat jar or the container.
-The example commands in the next section are shown with a jar, but you can run the commands with the container in the same way by replacing
-`java -jar scalar-admin-<version>-all.jar` with `docker run -it --rm ghcr.io/scalar-labs/scalar-admin:<version>` or `kubectl run <NAME> -it --image=ghcr.io/scalar-labs/scalar-admin:<version> --restart=Never --rm --`
-
 In case you want to build the docker image from the source:
 
 ```console
 $ ./gradlew docker
 ```
 
-#### Run
+### Usage
 
-##### Available commands
+You can manage the scalar-admin integrated applications in the following ways
 
-```
-Usage: scalar-admin [-hn] -c=COMMAND [-m=<maxPauseWaitTime>] -s=SRV_SERVICE_URL
-Execute an admin command for applications that implement scalar admin interface.
-  -c, --command=COMMAND   A command to execute.
-  -h, --help              display the help message.
-  -m, --max-pause-wait-time=<maxPauseWaitTime>
-                          A max pause wait time in milliseconds.
-  -n, --no-wait           A flag to specify if PAUSE command waits for
-                            termination of outstanding requests.
-  -s, --srv-service-url=SRV_SERVICE_URL
-                          A service URL of SRV record.
-```
+#### Fat jar
 
-##### Execute commands
+You can run the flat jar as follows.
 
-```
+```console
 $ java -jar scalar-admin-<version>-all.jar -c <COMMAND> -s <SRV_SERVICE_URL>
 ```
 
-Note:- Commands are `PAUSE`, `UNPAUSE` and `STATS`.
+#### Docker container
+
+If you want to use the `scalar-admin` container, you can do it as follows.
+
+```console
+$ docker run -it --rm ghcr.io/scalar-labs/scalar-admin:<version> -c <COMMAND> -s <SRV_SERVICE_URL>
+```
+
+If you want to use the `scalar-admin` container on kubernetes, you can do it as follows.
+
+```console
+$ kubectl run <NAME> -it --image=ghcr.io/scalar-labs/scalar-admin:<version> --restart=Never --rm -- -c <COMMAND> -s <SRV_SERVICE_URL>
+```
 
 ## Implement server-side code
 

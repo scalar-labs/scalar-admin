@@ -1,4 +1,4 @@
-FROM openjdk:8u292-jre-slim
+FROM ghcr.io/scalar-labs/jre8:1.0.0
 
 WORKDIR /scalar
 
