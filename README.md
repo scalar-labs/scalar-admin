@@ -35,11 +35,9 @@ $ ./gradlew docker
 
 ### Usage
 
-You can manage the scalar-admin integrated applications in the following ways
-
 #### Fat jar
 
-You can run the flat jar as follows.
+You can run the fat jar as follows.
 
 ```console
 $ java -jar scalar-admin-<version>-all.jar -c <COMMAND> -s <SRV_SERVICE_URL>
