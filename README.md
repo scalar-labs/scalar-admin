@@ -1,19 +1,60 @@
 # scalar-admin
 
-scalar-admin is an admin interface and client tool for Scalar services such as [Scalar DL](https://github.com/scalar-labs/scalardl) and [Scalar DB](https://github.com/scalar-labs/scalardb) applications.
+scalar-admin is an admin interface and client tool for Scalar services such as [Scalar DL](https://github.com/scalar-labs/scalardl) and [Scalar DB](https://github.com/scalar-labs/scalardb) applications. 
+It will help you to pause Scalar DL Ledger cluster or Scalar DB server cluster to create a transactionally-consistent backup.
 
-## Use the client-side tool
+## scalar-admin client tool
 
-To access scalar-admin integrated applications, you can use the fat jar `scalar-admin-<version>-all.jar` found in [releases](https://github.com/scalar-labs/scalar-admin/releases) as follows.
+As of the current implementation, the scalar-admin client tool is mainly used to pause (and unpause) the cluster of applications that implement the admin interface.
+
+### Install
+
+#### Fat jar
+
+The release versions of `scalar-admin` fat jar can be downloaded from [releases](https://github.com/scalar-labs/scalar-admin/releases) page of Scalar Admin.
+
+#### Docker container
+
+You can pull the docker image from [Scalar's container registry](https://github.com/orgs/scalar-labs/packages/container/package/scalar-admin).
+
+#### Build from sources
+
+In case you want to build `scalar-admin` fat jar from the source:
+
 ```console
-$ java -jar scalar-admin-<version>-all.jar
+$ ./gradlew shadowJar
 ```
 
-You can also build the tool as follows.
+* The built fat jar file is `build/libs/scalar-admin-<version>-all.jar`
+
+In case you want to build the docker image from the source:
 
 ```console
-$ ./gradlew installDist
-$ build/install/scalar-admin/bin/scalar-admin
+$ ./gradlew docker
+```
+
+### Usage
+
+#### Fat jar
+
+You can run the fat jar as follows.
+
+```console
+$ java -jar scalar-admin-<version>-all.jar -c <COMMAND> -s <SRV_SERVICE_URL>
+```
+
+#### Docker container
+
+If you want to use the `scalar-admin` container, you can do it as follows.
+
+```console
+$ docker run -it --rm ghcr.io/scalar-labs/scalar-admin:<version> -c <COMMAND> -s <SRV_SERVICE_URL>
+```
+
+If you want to use the `scalar-admin` container on kubernetes, you can do it as follows.
+
+```console
+$ kubectl run <NAME> -it --image=ghcr.io/scalar-labs/scalar-admin:<version> --restart=Never --rm -- -c <COMMAND> -s <SRV_SERVICE_URL>
 ```
 
 ## Implement server-side code

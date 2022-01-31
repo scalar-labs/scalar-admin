@@ -6,6 +6,7 @@ plugins {
     id 'java-library-distribution'
     id 'com.google.protobuf' version '0.8.8'
     id 'com.github.johnrengelman.shadow' version '6.1.0'
+    id 'com.palantir.docker' version '0.25.0'
 }
 startScripts.enabled = false
 
@@ -72,6 +73,21 @@ task sourcesJar(type: Jar) {
 task javadocJar(type: Jar) {
     classifier = 'javadoc'
     from javadoc
+}
+
+distZip {
+    archiveFileName = "${project.name}.zip"
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
+
+distTar {
+    archiveFileName = "${project.name}.tar"
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
+
+docker {
+    name "${project.name}"
+    files tasks.distTar.outputs
 }
 
 shadowJar {
