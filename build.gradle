@@ -14,9 +14,8 @@ repositories {
     mavenCentral()
 }
 
-def grpcVersion = '1.40.1'
-def protobufVersion = '3.17.3'
-def protocVersion = '3.17.3'
+def grpcVersion = '1.43.2'
+def protobufVersion = '3.19.2'
 
 dependencies {
     compile group: 'org.slf4j', name: 'slf4j-log4j12', version: '1.7.30'
@@ -39,7 +38,7 @@ dependencies {
 }
 
 protobuf {
-    protoc { artifact = "com.google.protobuf:protoc:${protocVersion}" }
+    protoc { artifact = "com.google.protobuf:protoc:${protobufVersion}" }
     plugins {
         grpc { artifact = "io.grpc:protoc-gen-grpc-java:${grpcVersion}" }
     }
