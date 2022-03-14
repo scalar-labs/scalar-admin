@@ -59,6 +59,7 @@ $ kubectl run <NAME> -it --image=ghcr.io/scalar-labs/scalar-admin:<version> --re
 
 Note:-
 
+`SRV_SERVICE_URL` is a URL of the SRV record.
 In Kubernetes, You can find the URL of the SRV record with the help of the [SRV records](https://kubernetes.io/docs/concepts/services-networking/dns-pod-service/#srv-records) guide.
 
 ## Implement server-side code
