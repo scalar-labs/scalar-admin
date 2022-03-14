@@ -57,6 +57,10 @@ If you want to use the `scalar-admin` container on kubernetes, you can do it as 
 $ kubectl run <NAME> -it --image=ghcr.io/scalar-labs/scalar-admin:<version> --restart=Never --rm -- -c <COMMAND> -s <SRV_SERVICE_URL>
 ```
 
+Note:-
+
+In kubernetes, You can find the URL of SRV record with the help of the [SRV records](https://kubernetes.io/docs/concepts/services-networking/dns-pod-service/#srv-records) guide.
+
 ## Implement server-side code
 
 To make your services accessible from scalar-admin tool, you need to implement server-side code based on the admin interface defined in [admin.proto](src/main/proto/scalar/protobuf/admin.proto).
