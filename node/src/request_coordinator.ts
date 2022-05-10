@@ -5,11 +5,9 @@ import {AdminClient} from './admin_client';
  * Supports to send pause/unpause requests to all hosts of a service records
  */
 export class RequestCoordinator {
-  srvServiceUrl: string;
   resolver: DNS.Resolver;
 
-  constructor(srvServiceUrl: string) {
-    this.srvServiceUrl = srvServiceUrl;
+  constructor(private srvServiceUrl: string) {
     this.resolver = new DNS.Resolver();
   }
 
