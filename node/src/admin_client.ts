@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import * as grpc from '@grpc/grpc-js';
+import {Empty} from 'google-protobuf/google/protobuf/empty_pb';
 
-const empty = require('google-protobuf/google/protobuf/empty_pb.js');
 const messages = require('./admin_pb.js');
 const services = require('./admin_grpc_pb.js');
 
@@ -58,7 +58,7 @@ export class AdminClient {
     const client = this._client;
 
     return new Promise((resolve, reject) => {
-      client.unpause(new empty.Empty(), (e: unknown) => {
+      client.unpause(new Empty(), (e: unknown) => {
         if (e !== null) {
           reject(e);
         } else {
