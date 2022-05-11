@@ -78,6 +78,37 @@ public final class AdminGrpc {
   }
 
   private static volatile io.grpc.MethodDescriptor<com.google.protobuf.Empty,
+      com.scalar.admin.rpc.PausedResponse> getPausedMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "Paused",
+      requestType = com.google.protobuf.Empty.class,
+      responseType = com.scalar.admin.rpc.PausedResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<com.google.protobuf.Empty,
+      com.scalar.admin.rpc.PausedResponse> getPausedMethod() {
+    io.grpc.MethodDescriptor<com.google.protobuf.Empty, com.scalar.admin.rpc.PausedResponse> getPausedMethod;
+    if ((getPausedMethod = AdminGrpc.getPausedMethod) == null) {
+      synchronized (AdminGrpc.class) {
+        if ((getPausedMethod = AdminGrpc.getPausedMethod) == null) {
+          AdminGrpc.getPausedMethod = getPausedMethod =
+              io.grpc.MethodDescriptor.<com.google.protobuf.Empty, com.scalar.admin.rpc.PausedResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "Paused"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  com.google.protobuf.Empty.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  com.scalar.admin.rpc.PausedResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new AdminMethodDescriptorSupplier("Paused"))
+              .build();
+        }
+      }
+    }
+    return getPausedMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<com.google.protobuf.Empty,
       com.scalar.admin.rpc.StatsResponse> getStatsMethod;
 
   @io.grpc.stub.annotations.RpcMethod(
@@ -172,6 +203,13 @@ public final class AdminGrpc {
 
     /**
      */
+    public void paused(com.google.protobuf.Empty request,
+        io.grpc.stub.StreamObserver<com.scalar.admin.rpc.PausedResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getPausedMethod(), responseObserver);
+    }
+
+    /**
+     */
     public void stats(com.google.protobuf.Empty request,
         io.grpc.stub.StreamObserver<com.scalar.admin.rpc.StatsResponse> responseObserver) {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getStatsMethod(), responseObserver);
@@ -193,6 +231,13 @@ public final class AdminGrpc {
                 com.google.protobuf.Empty,
                 com.google.protobuf.Empty>(
                   this, METHODID_UNPAUSE)))
+          .addMethod(
+            getPausedMethod(),
+            io.grpc.stub.ServerCalls.asyncUnaryCall(
+              new MethodHandlers<
+                com.google.protobuf.Empty,
+                com.scalar.admin.rpc.PausedResponse>(
+                  this, METHODID_PAUSED)))
           .addMethod(
             getStatsMethod(),
             io.grpc.stub.ServerCalls.asyncUnaryCall(
@@ -236,6 +281,14 @@ public final class AdminGrpc {
 
     /**
      */
+    public void paused(com.google.protobuf.Empty request,
+        io.grpc.stub.StreamObserver<com.scalar.admin.rpc.PausedResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getPausedMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     */
     public void stats(com.google.protobuf.Empty request,
         io.grpc.stub.StreamObserver<com.scalar.admin.rpc.StatsResponse> responseObserver) {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
@@ -269,6 +322,13 @@ public final class AdminGrpc {
     public com.google.protobuf.Empty unpause(com.google.protobuf.Empty request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getUnpauseMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public com.scalar.admin.rpc.PausedResponse paused(com.google.protobuf.Empty request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getPausedMethod(), getCallOptions(), request);
     }
 
     /**
@@ -311,6 +371,14 @@ public final class AdminGrpc {
 
     /**
      */
+    public com.google.common.util.concurrent.ListenableFuture<com.scalar.admin.rpc.PausedResponse> paused(
+        com.google.protobuf.Empty request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getPausedMethod(), getCallOptions()), request);
+    }
+
+    /**
+     */
     public com.google.common.util.concurrent.ListenableFuture<com.scalar.admin.rpc.StatsResponse> stats(
         com.google.protobuf.Empty request) {
       return io.grpc.stub.ClientCalls.futureUnaryCall(
@@ -320,7 +388,8 @@ public final class AdminGrpc {
 
   private static final int METHODID_PAUSE = 0;
   private static final int METHODID_UNPAUSE = 1;
-  private static final int METHODID_STATS = 2;
+  private static final int METHODID_PAUSED = 2;
+  private static final int METHODID_STATS = 3;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -346,6 +415,10 @@ public final class AdminGrpc {
         case METHODID_UNPAUSE:
           serviceImpl.unpause((com.google.protobuf.Empty) request,
               (io.grpc.stub.StreamObserver<com.google.protobuf.Empty>) responseObserver);
+          break;
+        case METHODID_PAUSED:
+          serviceImpl.paused((com.google.protobuf.Empty) request,
+              (io.grpc.stub.StreamObserver<com.scalar.admin.rpc.PausedResponse>) responseObserver);
           break;
         case METHODID_STATS:
           serviceImpl.stats((com.google.protobuf.Empty) request,
@@ -414,6 +487,7 @@ public final class AdminGrpc {
               .setSchemaDescriptor(new AdminFileDescriptorSupplier())
               .addMethod(getPauseMethod())
               .addMethod(getUnpauseMethod())
+              .addMethod(getPausedMethod())
               .addMethod(getStatsMethod())
               .build();
         }

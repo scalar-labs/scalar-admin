@@ -52,6 +52,12 @@ public class RequestCoordinator {
     return builder.build();
   }
 
+  public JsonObject paused() {
+    JsonObjectBuilder builder = Json.createObjectBuilder();
+    run(AdminClient::paused).forEach((k, v) -> builder.add(k, v));
+    return builder.build();
+  }
+
   private Map<String, String> run(Function<AdminClient, Optional<String>> function) {
     // Assume that the list of addresses for unpause is the same as the one for pause.
     List<SRVRecord> records = getApplicationIps(srvServiceUrl);
