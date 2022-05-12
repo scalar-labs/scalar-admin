@@ -78,34 +78,34 @@ public final class AdminGrpc {
   }
 
   private static volatile io.grpc.MethodDescriptor<com.google.protobuf.Empty,
-      com.scalar.admin.rpc.PausedResponse> getPausedMethod;
+      com.scalar.admin.rpc.CheckPausedResponse> getCheckPausedMethod;
 
   @io.grpc.stub.annotations.RpcMethod(
-      fullMethodName = SERVICE_NAME + '/' + "Paused",
+      fullMethodName = SERVICE_NAME + '/' + "CheckPaused",
       requestType = com.google.protobuf.Empty.class,
-      responseType = com.scalar.admin.rpc.PausedResponse.class,
+      responseType = com.scalar.admin.rpc.CheckPausedResponse.class,
       methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
   public static io.grpc.MethodDescriptor<com.google.protobuf.Empty,
-      com.scalar.admin.rpc.PausedResponse> getPausedMethod() {
-    io.grpc.MethodDescriptor<com.google.protobuf.Empty, com.scalar.admin.rpc.PausedResponse> getPausedMethod;
-    if ((getPausedMethod = AdminGrpc.getPausedMethod) == null) {
+      com.scalar.admin.rpc.CheckPausedResponse> getCheckPausedMethod() {
+    io.grpc.MethodDescriptor<com.google.protobuf.Empty, com.scalar.admin.rpc.CheckPausedResponse> getCheckPausedMethod;
+    if ((getCheckPausedMethod = AdminGrpc.getCheckPausedMethod) == null) {
       synchronized (AdminGrpc.class) {
-        if ((getPausedMethod = AdminGrpc.getPausedMethod) == null) {
-          AdminGrpc.getPausedMethod = getPausedMethod =
-              io.grpc.MethodDescriptor.<com.google.protobuf.Empty, com.scalar.admin.rpc.PausedResponse>newBuilder()
+        if ((getCheckPausedMethod = AdminGrpc.getCheckPausedMethod) == null) {
+          AdminGrpc.getCheckPausedMethod = getCheckPausedMethod =
+              io.grpc.MethodDescriptor.<com.google.protobuf.Empty, com.scalar.admin.rpc.CheckPausedResponse>newBuilder()
               .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
-              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "Paused"))
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "CheckPaused"))
               .setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
                   com.google.protobuf.Empty.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  com.scalar.admin.rpc.PausedResponse.getDefaultInstance()))
-              .setSchemaDescriptor(new AdminMethodDescriptorSupplier("Paused"))
+                  com.scalar.admin.rpc.CheckPausedResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new AdminMethodDescriptorSupplier("CheckPaused"))
               .build();
         }
       }
     }
-    return getPausedMethod;
+    return getCheckPausedMethod;
   }
 
   private static volatile io.grpc.MethodDescriptor<com.google.protobuf.Empty,
@@ -203,9 +203,9 @@ public final class AdminGrpc {
 
     /**
      */
-    public void paused(com.google.protobuf.Empty request,
-        io.grpc.stub.StreamObserver<com.scalar.admin.rpc.PausedResponse> responseObserver) {
-      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getPausedMethod(), responseObserver);
+    public void checkPaused(com.google.protobuf.Empty request,
+        io.grpc.stub.StreamObserver<com.scalar.admin.rpc.CheckPausedResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getCheckPausedMethod(), responseObserver);
     }
 
     /**
@@ -232,12 +232,12 @@ public final class AdminGrpc {
                 com.google.protobuf.Empty>(
                   this, METHODID_UNPAUSE)))
           .addMethod(
-            getPausedMethod(),
+            getCheckPausedMethod(),
             io.grpc.stub.ServerCalls.asyncUnaryCall(
               new MethodHandlers<
                 com.google.protobuf.Empty,
-                com.scalar.admin.rpc.PausedResponse>(
-                  this, METHODID_PAUSED)))
+                com.scalar.admin.rpc.CheckPausedResponse>(
+                  this, METHODID_CHECK_PAUSED)))
           .addMethod(
             getStatsMethod(),
             io.grpc.stub.ServerCalls.asyncUnaryCall(
@@ -281,10 +281,10 @@ public final class AdminGrpc {
 
     /**
      */
-    public void paused(com.google.protobuf.Empty request,
-        io.grpc.stub.StreamObserver<com.scalar.admin.rpc.PausedResponse> responseObserver) {
+    public void checkPaused(com.google.protobuf.Empty request,
+        io.grpc.stub.StreamObserver<com.scalar.admin.rpc.CheckPausedResponse> responseObserver) {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
-          getChannel().newCall(getPausedMethod(), getCallOptions()), request, responseObserver);
+          getChannel().newCall(getCheckPausedMethod(), getCallOptions()), request, responseObserver);
     }
 
     /**
@@ -326,9 +326,9 @@ public final class AdminGrpc {
 
     /**
      */
-    public com.scalar.admin.rpc.PausedResponse paused(com.google.protobuf.Empty request) {
+    public com.scalar.admin.rpc.CheckPausedResponse checkPaused(com.google.protobuf.Empty request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
-          getChannel(), getPausedMethod(), getCallOptions(), request);
+          getChannel(), getCheckPausedMethod(), getCallOptions(), request);
     }
 
     /**
@@ -371,10 +371,10 @@ public final class AdminGrpc {
 
     /**
      */
-    public com.google.common.util.concurrent.ListenableFuture<com.scalar.admin.rpc.PausedResponse> paused(
+    public com.google.common.util.concurrent.ListenableFuture<com.scalar.admin.rpc.CheckPausedResponse> checkPaused(
         com.google.protobuf.Empty request) {
       return io.grpc.stub.ClientCalls.futureUnaryCall(
-          getChannel().newCall(getPausedMethod(), getCallOptions()), request);
+          getChannel().newCall(getCheckPausedMethod(), getCallOptions()), request);
     }
 
     /**
@@ -388,7 +388,7 @@ public final class AdminGrpc {
 
   private static final int METHODID_PAUSE = 0;
   private static final int METHODID_UNPAUSE = 1;
-  private static final int METHODID_PAUSED = 2;
+  private static final int METHODID_CHECK_PAUSED = 2;
   private static final int METHODID_STATS = 3;
 
   private static final class MethodHandlers<Req, Resp> implements
@@ -416,9 +416,9 @@ public final class AdminGrpc {
           serviceImpl.unpause((com.google.protobuf.Empty) request,
               (io.grpc.stub.StreamObserver<com.google.protobuf.Empty>) responseObserver);
           break;
-        case METHODID_PAUSED:
-          serviceImpl.paused((com.google.protobuf.Empty) request,
-              (io.grpc.stub.StreamObserver<com.scalar.admin.rpc.PausedResponse>) responseObserver);
+        case METHODID_CHECK_PAUSED:
+          serviceImpl.checkPaused((com.google.protobuf.Empty) request,
+              (io.grpc.stub.StreamObserver<com.scalar.admin.rpc.CheckPausedResponse>) responseObserver);
           break;
         case METHODID_STATS:
           serviceImpl.stats((com.google.protobuf.Empty) request,
@@ -487,7 +487,7 @@ public final class AdminGrpc {
               .setSchemaDescriptor(new AdminFileDescriptorSupplier())
               .addMethod(getPauseMethod())
               .addMethod(getUnpauseMethod())
-              .addMethod(getPausedMethod())
+              .addMethod(getCheckPausedMethod())
               .addMethod(getStatsMethod())
               .build();
         }

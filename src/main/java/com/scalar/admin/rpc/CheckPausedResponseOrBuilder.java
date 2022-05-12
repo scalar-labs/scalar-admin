@@ -3,8 +3,8 @@
 
 package com.scalar.admin.rpc;
 
-public interface PausedResponseOrBuilder extends
-    // @@protoc_insertion_point(interface_extends:rpc.PausedResponse)
+public interface CheckPausedResponseOrBuilder extends
+    // @@protoc_insertion_point(interface_extends:rpc.CheckPausedResponse)
     com.google.protobuf.MessageOrBuilder {
 
   /**

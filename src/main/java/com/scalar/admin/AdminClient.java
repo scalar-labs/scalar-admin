@@ -52,12 +52,12 @@ public class AdminClient implements Closeable {
     }
   }
 
-  public Optional<String> paused() {
+  public Optional<String> checkPaused() {
     try {
       return Optional.of(
-          String.valueOf(blockingStub.paused(Empty.newBuilder().build()).getPaused()));
+          String.valueOf(blockingStub.checkPaused(Empty.newBuilder().build()).getPaused()));
     } catch (Exception e) {
-      throw new AdminException("failed to get the pause status.", e);
+      throw new AdminException("failed to check the paused status.", e);
     }
   }
 

@@ -52,9 +52,9 @@ public class RequestCoordinator {
     return builder.build();
   }
 
-  public JsonObject paused() {
+  public JsonObject checkPaused() {
     JsonObjectBuilder builder = Json.createObjectBuilder();
-    run(AdminClient::paused).forEach((k, v) -> builder.add(k, v));
+    run(AdminClient::checkPaused).forEach((k, v) -> builder.add(k, v));
     return builder.build();
   }
 

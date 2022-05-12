@@ -72,8 +72,8 @@ public class AdminCommand implements Callable<Integer> {
       case STATS:
         printJson(coordinator.stats());
         break;
-      case PAUSED:
-        printJson(coordinator.paused());
+      case CHECKPAUSED:
+        printJson(coordinator.checkPaused());
         break;
     }
     return 0;

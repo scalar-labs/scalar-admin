@@ -4,25 +4,25 @@
 package com.scalar.admin.rpc;
 
 /**
- * Protobuf type {@code rpc.PausedResponse}
+ * Protobuf type {@code rpc.CheckPausedResponse}
  */
-public final class PausedResponse extends
+public final class CheckPausedResponse extends
     com.google.protobuf.GeneratedMessageV3 implements
-    // @@protoc_insertion_point(message_implements:rpc.PausedResponse)
-    PausedResponseOrBuilder {
+    // @@protoc_insertion_point(message_implements:rpc.CheckPausedResponse)
+    CheckPausedResponseOrBuilder {
 private static final long serialVersionUID = 0L;
-  // Use PausedResponse.newBuilder() to construct.
-  private PausedResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+  // Use CheckPausedResponse.newBuilder() to construct.
+  private CheckPausedResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
     super(builder);
   }
-  private PausedResponse() {
+  private CheckPausedResponse() {
   }
 
   @java.lang.Override
   @SuppressWarnings({"unused"})
   protected java.lang.Object newInstance(
       UnusedPrivateParameter unused) {
-    return new PausedResponse();
+    return new CheckPausedResponse();
   }
 
   @java.lang.Override
@@ -30,7 +30,7 @@ private static final long serialVersionUID = 0L;
   getUnknownFields() {
     return this.unknownFields;
   }
-  private PausedResponse(
+  private CheckPausedResponse(
       com.google.protobuf.CodedInputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
@@ -74,15 +74,15 @@ private static final long serialVersionUID = 0L;
   }
   public static final com.google.protobuf.Descriptors.Descriptor
       getDescriptor() {
-    return com.scalar.admin.rpc.AdminProto.internal_static_rpc_PausedResponse_descriptor;
+    return com.scalar.admin.rpc.AdminProto.internal_static_rpc_CheckPausedResponse_descriptor;
   }
 
   @java.lang.Override
   protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internalGetFieldAccessorTable() {
-    return com.scalar.admin.rpc.AdminProto.internal_static_rpc_PausedResponse_fieldAccessorTable
+    return com.scalar.admin.rpc.AdminProto.internal_static_rpc_CheckPausedResponse_fieldAccessorTable
         .ensureFieldAccessorsInitialized(
-            com.scalar.admin.rpc.PausedResponse.class, com.scalar.admin.rpc.PausedResponse.Builder.class);
+            com.scalar.admin.rpc.CheckPausedResponse.class, com.scalar.admin.rpc.CheckPausedResponse.Builder.class);
   }
 
   public static final int PAUSED_FIELD_NUMBER = 1;
@@ -136,10 +136,10 @@ private static final long serialVersionUID = 0L;
     if (obj == this) {
      return true;
     }
-    if (!(obj instanceof com.scalar.admin.rpc.PausedResponse)) {
+    if (!(obj instanceof com.scalar.admin.rpc.CheckPausedResponse)) {
       return super.equals(obj);
     }
-    com.scalar.admin.rpc.PausedResponse other = (com.scalar.admin.rpc.PausedResponse) obj;
+    com.scalar.admin.rpc.CheckPausedResponse other = (com.scalar.admin.rpc.CheckPausedResponse) obj;
 
     if (getPaused()
         != other.getPaused()) return false;
@@ -162,69 +162,69 @@ private static final long serialVersionUID = 0L;
     return hash;
   }
 
-  public static com.scalar.admin.rpc.PausedResponse parseFrom(
+  public static com.scalar.admin.rpc.CheckPausedResponse parseFrom(
       java.nio.ByteBuffer data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static com.scalar.admin.rpc.PausedResponse parseFrom(
+  public static com.scalar.admin.rpc.CheckPausedResponse parseFrom(
       java.nio.ByteBuffer data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static com.scalar.admin.rpc.PausedResponse parseFrom(
+  public static com.scalar.admin.rpc.CheckPausedResponse parseFrom(
       com.google.protobuf.ByteString data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static com.scalar.admin.rpc.PausedResponse parseFrom(
+  public static com.scalar.admin.rpc.CheckPausedResponse parseFrom(
       com.google.protobuf.ByteString data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static com.scalar.admin.rpc.PausedResponse parseFrom(byte[] data)
+  public static com.scalar.admin.rpc.CheckPausedResponse parseFrom(byte[] data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static com.scalar.admin.rpc.PausedResponse parseFrom(
+  public static com.scalar.admin.rpc.CheckPausedResponse parseFrom(
       byte[] data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static com.scalar.admin.rpc.PausedResponse parseFrom(java.io.InputStream input)
+  public static com.scalar.admin.rpc.CheckPausedResponse parseFrom(java.io.InputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input);
   }
-  public static com.scalar.admin.rpc.PausedResponse parseFrom(
+  public static com.scalar.admin.rpc.CheckPausedResponse parseFrom(
       java.io.InputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input, extensionRegistry);
   }
-  public static com.scalar.admin.rpc.PausedResponse parseDelimitedFrom(java.io.InputStream input)
+  public static com.scalar.admin.rpc.CheckPausedResponse parseDelimitedFrom(java.io.InputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseDelimitedWithIOException(PARSER, input);
   }
-  public static com.scalar.admin.rpc.PausedResponse parseDelimitedFrom(
+  public static com.scalar.admin.rpc.CheckPausedResponse parseDelimitedFrom(
       java.io.InputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
   }
-  public static com.scalar.admin.rpc.PausedResponse parseFrom(
+  public static com.scalar.admin.rpc.CheckPausedResponse parseFrom(
       com.google.protobuf.CodedInputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input);
   }
-  public static com.scalar.admin.rpc.PausedResponse parseFrom(
+  public static com.scalar.admin.rpc.CheckPausedResponse parseFrom(
       com.google.protobuf.CodedInputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
@@ -237,7 +237,7 @@ private static final long serialVersionUID = 0L;
   public static Builder newBuilder() {
     return DEFAULT_INSTANCE.toBuilder();
   }
-  public static Builder newBuilder(com.scalar.admin.rpc.PausedResponse prototype) {
+  public static Builder newBuilder(com.scalar.admin.rpc.CheckPausedResponse prototype) {
     return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
   }
   @java.lang.Override
@@ -253,26 +253,26 @@ private static final long serialVersionUID = 0L;
     return builder;
   }
   /**
-   * Protobuf type {@code rpc.PausedResponse}
+   * Protobuf type {@code rpc.CheckPausedResponse}
    */
   public static final class Builder extends
       com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-      // @@protoc_insertion_point(builder_implements:rpc.PausedResponse)
-      com.scalar.admin.rpc.PausedResponseOrBuilder {
+      // @@protoc_insertion_point(builder_implements:rpc.CheckPausedResponse)
+      com.scalar.admin.rpc.CheckPausedResponseOrBuilder {
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return com.scalar.admin.rpc.AdminProto.internal_static_rpc_PausedResponse_descriptor;
+      return com.scalar.admin.rpc.AdminProto.internal_static_rpc_CheckPausedResponse_descriptor;
     }
 
     @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return com.scalar.admin.rpc.AdminProto.internal_static_rpc_PausedResponse_fieldAccessorTable
+      return com.scalar.admin.rpc.AdminProto.internal_static_rpc_CheckPausedResponse_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              com.scalar.admin.rpc.PausedResponse.class, com.scalar.admin.rpc.PausedResponse.Builder.class);
+              com.scalar.admin.rpc.CheckPausedResponse.class, com.scalar.admin.rpc.CheckPausedResponse.Builder.class);
     }
 
-    // Construct using com.scalar.admin.rpc.PausedResponse.newBuilder()
+    // Construct using com.scalar.admin.rpc.CheckPausedResponse.newBuilder()
     private Builder() {
       maybeForceBuilderInitialization();
     }
@@ -298,17 +298,17 @@ private static final long serialVersionUID = 0L;
     @java.lang.Override
     public com.google.protobuf.Descriptors.Descriptor
         getDescriptorForType() {
-      return com.scalar.admin.rpc.AdminProto.internal_static_rpc_PausedResponse_descriptor;
+      return com.scalar.admin.rpc.AdminProto.internal_static_rpc_CheckPausedResponse_descriptor;
     }
 
     @java.lang.Override
-    public com.scalar.admin.rpc.PausedResponse getDefaultInstanceForType() {
-      return com.scalar.admin.rpc.PausedResponse.getDefaultInstance();
+    public com.scalar.admin.rpc.CheckPausedResponse getDefaultInstanceForType() {
+      return com.scalar.admin.rpc.CheckPausedResponse.getDefaultInstance();
     }
 
     @java.lang.Override
-    public com.scalar.admin.rpc.PausedResponse build() {
-      com.scalar.admin.rpc.PausedResponse result = buildPartial();
+    public com.scalar.admin.rpc.CheckPausedResponse build() {
+      com.scalar.admin.rpc.CheckPausedResponse result = buildPartial();
       if (!result.isInitialized()) {
         throw newUninitializedMessageException(result);
       }
@@ -316,8 +316,8 @@ private static final long serialVersionUID = 0L;
     }
 
     @java.lang.Override
-    public com.scalar.admin.rpc.PausedResponse buildPartial() {
-      com.scalar.admin.rpc.PausedResponse result = new com.scalar.admin.rpc.PausedResponse(this);
+    public com.scalar.admin.rpc.CheckPausedResponse buildPartial() {
+      com.scalar.admin.rpc.CheckPausedResponse result = new com.scalar.admin.rpc.CheckPausedResponse(this);
       result.paused_ = paused_;
       onBuilt();
       return result;
@@ -357,16 +357,16 @@ private static final long serialVersionUID = 0L;
     }
     @java.lang.Override
     public Builder mergeFrom(com.google.protobuf.Message other) {
-      if (other instanceof com.scalar.admin.rpc.PausedResponse) {
-        return mergeFrom((com.scalar.admin.rpc.PausedResponse)other);
+      if (other instanceof com.scalar.admin.rpc.CheckPausedResponse) {
+        return mergeFrom((com.scalar.admin.rpc.CheckPausedResponse)other);
       } else {
         super.mergeFrom(other);
         return this;
       }
     }
 
-    public Builder mergeFrom(com.scalar.admin.rpc.PausedResponse other) {
-      if (other == com.scalar.admin.rpc.PausedResponse.getDefaultInstance()) return this;
+    public Builder mergeFrom(com.scalar.admin.rpc.CheckPausedResponse other) {
+      if (other == com.scalar.admin.rpc.CheckPausedResponse.getDefaultInstance()) return this;
       if (other.getPaused() != false) {
         setPaused(other.getPaused());
       }
@@ -385,11 +385,11 @@ private static final long serialVersionUID = 0L;
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      com.scalar.admin.rpc.PausedResponse parsedMessage = null;
+      com.scalar.admin.rpc.CheckPausedResponse parsedMessage = null;
       try {
         parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        parsedMessage = (com.scalar.admin.rpc.PausedResponse) e.getUnfinishedMessage();
+        parsedMessage = (com.scalar.admin.rpc.CheckPausedResponse) e.getUnfinishedMessage();
         throw e.unwrapIOException();
       } finally {
         if (parsedMessage != null) {
@@ -442,41 +442,41 @@ private static final long serialVersionUID = 0L;
     }
 
 
-    // @@protoc_insertion_point(builder_scope:rpc.PausedResponse)
+    // @@protoc_insertion_point(builder_scope:rpc.CheckPausedResponse)
   }
 
-  // @@protoc_insertion_point(class_scope:rpc.PausedResponse)
-  private static final com.scalar.admin.rpc.PausedResponse DEFAULT_INSTANCE;
+  // @@protoc_insertion_point(class_scope:rpc.CheckPausedResponse)
+  private static final com.scalar.admin.rpc.CheckPausedResponse DEFAULT_INSTANCE;
   static {
-    DEFAULT_INSTANCE = new com.scalar.admin.rpc.PausedResponse();
+    DEFAULT_INSTANCE = new com.scalar.admin.rpc.CheckPausedResponse();
   }
 
-  public static com.scalar.admin.rpc.PausedResponse getDefaultInstance() {
+  public static com.scalar.admin.rpc.CheckPausedResponse getDefaultInstance() {
     return DEFAULT_INSTANCE;
   }
 
-  private static final com.google.protobuf.Parser<PausedResponse>
-      PARSER = new com.google.protobuf.AbstractParser<PausedResponse>() {
+  private static final com.google.protobuf.Parser<CheckPausedResponse>
+      PARSER = new com.google.protobuf.AbstractParser<CheckPausedResponse>() {
     @java.lang.Override
-    public PausedResponse parsePartialFrom(
+    public CheckPausedResponse parsePartialFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return new PausedResponse(input, extensionRegistry);
+      return new CheckPausedResponse(input, extensionRegistry);
     }
   };
 
-  public static com.google.protobuf.Parser<PausedResponse> parser() {
+  public static com.google.protobuf.Parser<CheckPausedResponse> parser() {
     return PARSER;
   }
 
   @java.lang.Override
-  public com.google.protobuf.Parser<PausedResponse> getParserForType() {
+  public com.google.protobuf.Parser<CheckPausedResponse> getParserForType() {
     return PARSER;
   }
 
   @java.lang.Override
-  public com.scalar.admin.rpc.PausedResponse getDefaultInstanceForType() {
+  public com.scalar.admin.rpc.CheckPausedResponse getDefaultInstanceForType() {
     return DEFAULT_INSTANCE;
   }
 
