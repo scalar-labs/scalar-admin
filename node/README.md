@@ -21,7 +21,7 @@ try {
 }
 ```
 
-### RequsetCoordinator
+### RequestCoordinator
 
 RequsetCoordinator can be used to send pause/unpause requests to all servers behine the given service record.
 When it fails to pause any of the servers, it tries to unpause (rollback) all of them.
