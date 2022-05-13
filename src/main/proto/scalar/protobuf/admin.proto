@@ -13,6 +13,8 @@ service Admin {
     }
     rpc Unpause (google.protobuf.Empty) returns (google.protobuf.Empty) {
     }
+    rpc CheckPaused (google.protobuf.Empty) returns (CheckPausedResponse) {
+    }
     rpc Stats (google.protobuf.Empty) returns (StatsResponse) {
     }
 }
@@ -26,3 +28,6 @@ message StatsResponse {
     string stats = 1; // json-formatted
 }
 
+message CheckPausedResponse {
+    bool paused = 1;
+}

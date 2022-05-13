@@ -167,4 +167,39 @@ public class RequestCoordinatorTest {
             .build();
     assertThat(actual).isEqualTo(expected);
   }
+
+  @Test
+  public void paused_SrvServiceUrlGiven_ShouldReturnGetAll() throws TextParseException {
+    // Arrange
+    List<SRVRecord> records = prepareSrvRecords();
+    doReturn(records).when(coordinator).getApplicationIps(SRV_SERVICE_URL);
+    AdminClient client1 = mock(AdminClient.class);
+    when(coordinator.getClient(APP_IP1, PORT)).thenReturn(client1);
+    when(client1.checkPaused()).thenReturn(Optional.of("false"));
+    AdminClient client2 = mock(AdminClient.class);
+    when(coordinator.getClient(APP_IP2, PORT)).thenReturn(client2);
+    when(client2.checkPaused()).thenReturn(Optional.of("false"));
+    AdminClient client3 = mock(AdminClient.class);
+    when(coordinator.getClient(APP_IP3, PORT)).thenReturn(client3);
+    when(client3.checkPaused()).thenReturn(Optional.of("false"));
+
+    // Act
+    JsonObject actual = coordinator.checkPaused();
+
+    // Assert
+    verify(coordinator).getClient(APP_IP1, PORT);
+    verify(client1).checkPaused();
+    verify(coordinator).getClient(APP_IP2, PORT);
+    verify(client2).checkPaused();
+    verify(coordinator).getClient(APP_IP3, PORT);
+    verify(client3).checkPaused();
+
+    JsonObject expected =
+        Json.createObjectBuilder()
+            .add(APP_IP1 + ":" + PORT, "false")
+            .add(APP_IP2 + ":" + PORT, "false")
+            .add(APP_IP3 + ":" + PORT, "false")
+            .build();
+    assertThat(actual).isEqualTo(expected);
+  }
 }
