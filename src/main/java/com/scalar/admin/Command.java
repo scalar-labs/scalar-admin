@@ -4,5 +4,5 @@ public enum Command {
   PAUSE,
   UNPAUSE,
   STATS,
-  CHECKPAUSED
+  CHECK_PAUSED
 }
