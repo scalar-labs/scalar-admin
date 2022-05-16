@@ -79,6 +79,10 @@ docker {
     files tasks.distTar.outputs
 }
 
+distTar {
+    archiveFileName = "${project.name}.tar"
+}
+
 shadowJar {
     mergeServiceFiles()
 }
