@@ -24,6 +24,16 @@ publishing {
                         name = 'Hiroyuki Yamada'
                         email = 'hiroyuki.yamada@scalar-labs.com'
                     }
+                    developer {
+                        id = 'brfrn169'
+                        name = 'Toshihiro Suzuki'
+                        email = 'brfrn169@gmail.com'
+                    }
+                    developer {
+                        id = 'supl'
+                        name = 'Plenty Su'
+                        email = 'plenty.su@scalar-labs.com'
+                    }
                 }
                 scm {
                     connection = 'scm:git:https://github.com/scalar-labs/scalar-admin.git'
