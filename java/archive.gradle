@@ -1,55 +1,61 @@
-apply plugin: 'maven'
+apply plugin: 'maven-publish'
 apply plugin: 'signing'
 
-artifacts {
-    archives javadocJar, sourcesJar
-}
-
-signing {
-    sign configurations.archives
-}
-
-uploadArchives {
-    repositories {
-        mavenDeployer {
-            beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
-
-            repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
-                authentication(userName: ossrhUsername, password: ossrhPassword)
-            }
-
-            snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
-                authentication(userName: ossrhUsername, password: ossrhPassword)
-            }
-
-            pom.project {
-                name 'Scalar Admin'
-                packaging 'jar'
-                // optionally artifactId can be defined here 
-                description 'An admin interface and tool for Scalar services.'
-                url 'https://github.com/scalar-labs/scalar-admin'
-
-                scm {
-                    connection 'scm:git:https://github.com/scalar-labs/scalar-admin.git'
-                    developerConnection 'scm:git:https://github.com/scalar-labs/scalar-admin.git'
-                    url 'https://github.com/scalar-labs/scalar-admin'
-                }
-
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            artifactId = 'scalar-admin'
+            artifact jar
+            artifact javadocJar
+            artifact sourcesJar
+            pom {
+                name = 'Scalar Admin'
+                description = 'An admin interface and tool for Scalar services.'
+                url = 'https://github.com/scalar-labs/scalar-admin'
                 licenses {
                     license {
-                        name 'Apache License, Version 2.0'
-                        url 'http://www.apache.org/licenses/LICENSE-2.0'
+                        name = 'Apache License, Version 2.0'
+                        url = 'http://www.apache.org/licenses/LICENSE-2.0'
                     }
                 }
-
                 developers {
                     developer {
-                        id 'hiroyuki'
-                        name 'Hiroyuki Yamada'
-                        email 'hiroyuki.yamada@scalar-labs.com'
+                        id = 'hiroyuki'
+                        name = 'Hiroyuki Yamada'
+                        email = 'hiroyuki.yamada@scalar-labs.com'
                     }
+                    developer {
+                        id = 'brfrn169'
+                        name = 'Toshihiro Suzuki'
+                        email = 'brfrn169@gmail.com'
+                    }
+                    developer {
+                        id = 'supl'
+                        name = 'Plenty Su'
+                        email = 'plenty.su@scalar-labs.com'
+                    }
+                }
+                scm {
+                    connection = 'scm:git:https://github.com/scalar-labs/scalar-admin.git'
+                    developerConnection = 'scm:git:https://github.com/scalar-labs/scalar-admin.git'
+                    url = 'https://github.com/scalar-labs/scalar-admin'
                 }
             }
         }
     }
+    repositories {
+        maven {
+            def releasesRepoUrl = "https://oss.sonatype.org/service/local/staging/deploy/maven2"
+            def snapshotsRepoUrl = "https://oss.sonatype.org/content/repositories/snapshots"
+            url = version.endsWith('SNAPSHOT') ? snapshotsRepoUrl : releasesRepoUrl
+            credentials {
+                username = "${ossrhUsername}"
+                password = "${ossrhPassword}"
+            }
+        }
+    }
+}
+
+signing {
+    sign publishing.publications.mavenJava
 }

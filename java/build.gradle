@@ -74,6 +74,16 @@ task javadocJar(type: Jar) {
     from javadoc
 }
 
+distZip {
+    archiveFileName = "${project.name}.zip"
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
+
+distTar {
+    archiveFileName = "${project.name}.tar"
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
+
 docker {
     name "${project.name}"
     files tasks.distTar.outputs
@@ -91,4 +101,8 @@ archivesBaseName = "scalar-admin"
 version = "1.2.0"
 
 // for archiving and uploading to maven central
-//apply from: 'archive.gradle'
+if (!project.gradle.startParameter.taskNames.isEmpty() &&
+    (project.gradle.startParameter.taskNames[0].endsWith('publish') ||
+     project.gradle.startParameter.taskNames[0].endsWith('publishToMavenLocal'))) {
+    apply from: 'archive.gradle'
+}
