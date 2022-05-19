@@ -2,7 +2,7 @@ import {promises as DNS, SrvRecord} from 'dns';
 import {AdminClient} from './admin_client';
 
 export type CheckPausedResopnse = {
-  ip: string;
+  host: string;
   paused: boolean;
 };
 
@@ -73,7 +73,7 @@ export class RequestCoordinator {
     for (const client of clients) {
       promises.push(
         client.checkPaused().then(r => ({
-          ip: client.getHost(),
+          host: client.getHost(),
           paused: r,
         }))
       );
