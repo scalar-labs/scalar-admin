@@ -12,7 +12,7 @@ export class AdminClient {
   _client: any;
 
   constructor(
-    host: string,
+    private host: string,
     port: number,
     credentials: grpc.ChannelCredentials | null = null
   ) {
@@ -20,6 +20,10 @@ export class AdminClient {
       `${host}:${port}`,
       credentials || grpc.credentials.createInsecure()
     );
+  }
+
+  getHost(): string {
+    return this.host;
   }
 
   /**
@@ -42,11 +46,8 @@ export class AdminClient {
 
     return new Promise((resolve, reject) => {
       client.pause(request, (e: unknown) => {
-        if (e !== null) {
-          reject(e);
-        } else {
-          resolve();
-        }
+        if (e) reject(e);
+        resolve();
       });
     });
   }
@@ -59,11 +60,23 @@ export class AdminClient {
 
     return new Promise((resolve, reject) => {
       client.unpause(new Empty(), (e: unknown) => {
-        if (e !== null) {
-          reject(e);
-        } else {
-          resolve();
-        }
+        if (e) reject(e);
+        resolve();
+      });
+    });
+  }
+
+  /**
+   * Send check paused request to a host.
+   * @returns {boolean} paused or not
+   */
+  async checkPaused(): Promise<boolean> {
+    const client = this._client;
+
+    return new Promise((resolve, reject) => {
+      client.checkPaused(new Empty(), (e: unknown, response: any) => {
+        if (e) reject(e);
+        resolve(response.getPaused());
       });
     });
   }
