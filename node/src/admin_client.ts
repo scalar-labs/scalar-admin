@@ -46,11 +46,8 @@ export class AdminClient {
 
     return new Promise((resolve, reject) => {
       client.pause(request, (e: unknown) => {
-        if (e !== null) {
-          reject(e);
-        } else {
-          resolve();
-        }
+        if (e) reject(e);
+        resolve();
       });
     });
   }
@@ -63,11 +60,8 @@ export class AdminClient {
 
     return new Promise((resolve, reject) => {
       client.unpause(new Empty(), (e: unknown) => {
-        if (e !== null) {
-          reject(e);
-        } else {
-          resolve();
-        }
+        if (e) reject(e);
+        resolve();
       });
     });
   }
@@ -81,11 +75,8 @@ export class AdminClient {
 
     return new Promise((resolve, reject) => {
       client.checkPaused(new Empty(), (e: unknown, response: any) => {
-        if (e !== null) {
-          reject(e);
-        } else {
-          resolve(response.getPaused());
-        }
+        if (e) reject(e);
+        resolve(response.getPaused());
       });
     });
   }
