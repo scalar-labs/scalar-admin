@@ -9,7 +9,6 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import com.scalar.admin.exception.AdminException;
-import java.io.StringReader;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -131,41 +130,6 @@ public class RequestCoordinatorTest {
 
     // Act Assert
     assertThatThrownBy(() -> coordinator.unpause()).isInstanceOf(AdminException.class);
-  }
-
-  @Test
-  public void stats_SrvServiceUrlGiven_ShouldUnpauseAll() throws TextParseException {
-    // Arrange
-    List<SRVRecord> records = prepareSrvRecords();
-    doReturn(records).when(coordinator).getApplicationIps(SRV_SERVICE_URL);
-    AdminClient client1 = mock(AdminClient.class);
-    when(coordinator.getClient(APP_IP1, PORT)).thenReturn(client1);
-    when(client1.stats()).thenReturn(Optional.of(JSON_RESULT));
-    AdminClient client2 = mock(AdminClient.class);
-    when(coordinator.getClient(APP_IP2, PORT)).thenReturn(client2);
-    when(client2.stats()).thenReturn(Optional.of(JSON_RESULT));
-    AdminClient client3 = mock(AdminClient.class);
-    when(coordinator.getClient(APP_IP3, PORT)).thenReturn(client3);
-    when(client3.stats()).thenReturn(Optional.of(JSON_RESULT));
-
-    // Act
-    JsonObject actual = coordinator.stats();
-
-    // Assert
-    verify(coordinator).getClient(APP_IP1, PORT);
-    verify(client1).stats();
-    verify(coordinator).getClient(APP_IP2, PORT);
-    verify(client2).stats();
-    verify(coordinator).getClient(APP_IP3, PORT);
-    verify(client3).stats();
-    JsonObject result = Json.createReader(new StringReader(JSON_RESULT)).readObject();
-    JsonObject expected =
-        Json.createObjectBuilder()
-            .add(APP_IP1 + ":" + PORT, result)
-            .add(APP_IP2 + ":" + PORT, result)
-            .add(APP_IP3 + ":" + PORT, result)
-            .build();
-    assertThat(actual).isEqualTo(expected);
   }
 
   @Test

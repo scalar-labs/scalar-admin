@@ -15,17 +15,11 @@ service Admin {
     }
     rpc CheckPaused (google.protobuf.Empty) returns (CheckPausedResponse) {
     }
-    rpc Stats (google.protobuf.Empty) returns (StatsResponse) {
-    }
 }
 
 message PauseRequest {
     bool wait_outstanding = 1;
     optional int64 max_pause_wait_time = 2;
-}
-
-message StatsResponse {
-    string stats = 1; // json-formatted
 }
 
 message CheckPausedResponse {

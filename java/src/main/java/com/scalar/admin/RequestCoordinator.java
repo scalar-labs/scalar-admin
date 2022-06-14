@@ -2,7 +2,6 @@ package com.scalar.admin;
 
 import com.google.common.annotations.VisibleForTesting;
 import com.scalar.admin.exception.AdminException;
-import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -43,13 +42,6 @@ public class RequestCoordinator {
 
   public void unpause() {
     run(AdminClient::unpause);
-  }
-
-  public JsonObject stats() {
-    JsonObjectBuilder builder = Json.createObjectBuilder();
-    run(AdminClient::stats)
-        .forEach((k, v) -> builder.add(k, Json.createReader(new StringReader(v)).readObject()));
-    return builder.build();
   }
 
   public JsonObject checkPaused() {
