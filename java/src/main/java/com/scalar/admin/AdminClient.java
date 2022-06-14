@@ -44,14 +44,6 @@ public class AdminClient implements Closeable {
     }
   }
 
-  public Optional<String> stats() {
-    try {
-      return Optional.of(blockingStub.stats(Empty.newBuilder().build()).getStats());
-    } catch (Exception e) {
-      throw new AdminException("stats failed.", e);
-    }
-  }
-
   public Optional<String> checkPaused() {
     try {
       return Optional.of(

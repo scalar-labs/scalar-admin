@@ -108,37 +108,6 @@ public final class AdminGrpc {
     return getCheckPausedMethod;
   }
 
-  private static volatile io.grpc.MethodDescriptor<com.google.protobuf.Empty,
-      com.scalar.admin.rpc.StatsResponse> getStatsMethod;
-
-  @io.grpc.stub.annotations.RpcMethod(
-      fullMethodName = SERVICE_NAME + '/' + "Stats",
-      requestType = com.google.protobuf.Empty.class,
-      responseType = com.scalar.admin.rpc.StatsResponse.class,
-      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
-  public static io.grpc.MethodDescriptor<com.google.protobuf.Empty,
-      com.scalar.admin.rpc.StatsResponse> getStatsMethod() {
-    io.grpc.MethodDescriptor<com.google.protobuf.Empty, com.scalar.admin.rpc.StatsResponse> getStatsMethod;
-    if ((getStatsMethod = AdminGrpc.getStatsMethod) == null) {
-      synchronized (AdminGrpc.class) {
-        if ((getStatsMethod = AdminGrpc.getStatsMethod) == null) {
-          AdminGrpc.getStatsMethod = getStatsMethod =
-              io.grpc.MethodDescriptor.<com.google.protobuf.Empty, com.scalar.admin.rpc.StatsResponse>newBuilder()
-              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
-              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "Stats"))
-              .setSampledToLocalTracing(true)
-              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  com.google.protobuf.Empty.getDefaultInstance()))
-              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  com.scalar.admin.rpc.StatsResponse.getDefaultInstance()))
-              .setSchemaDescriptor(new AdminMethodDescriptorSupplier("Stats"))
-              .build();
-        }
-      }
-    }
-    return getStatsMethod;
-  }
-
   /**
    * Creates a new async stub that supports all call types for the service
    */
@@ -208,13 +177,6 @@ public final class AdminGrpc {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getCheckPausedMethod(), responseObserver);
     }
 
-    /**
-     */
-    public void stats(com.google.protobuf.Empty request,
-        io.grpc.stub.StreamObserver<com.scalar.admin.rpc.StatsResponse> responseObserver) {
-      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getStatsMethod(), responseObserver);
-    }
-
     @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
       return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
           .addMethod(
@@ -238,13 +200,6 @@ public final class AdminGrpc {
                 com.google.protobuf.Empty,
                 com.scalar.admin.rpc.CheckPausedResponse>(
                   this, METHODID_CHECK_PAUSED)))
-          .addMethod(
-            getStatsMethod(),
-            io.grpc.stub.ServerCalls.asyncUnaryCall(
-              new MethodHandlers<
-                com.google.protobuf.Empty,
-                com.scalar.admin.rpc.StatsResponse>(
-                  this, METHODID_STATS)))
           .build();
     }
   }
@@ -286,14 +241,6 @@ public final class AdminGrpc {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
           getChannel().newCall(getCheckPausedMethod(), getCallOptions()), request, responseObserver);
     }
-
-    /**
-     */
-    public void stats(com.google.protobuf.Empty request,
-        io.grpc.stub.StreamObserver<com.scalar.admin.rpc.StatsResponse> responseObserver) {
-      io.grpc.stub.ClientCalls.asyncUnaryCall(
-          getChannel().newCall(getStatsMethod(), getCallOptions()), request, responseObserver);
-    }
   }
 
   /**
@@ -329,13 +276,6 @@ public final class AdminGrpc {
     public com.scalar.admin.rpc.CheckPausedResponse checkPaused(com.google.protobuf.Empty request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getCheckPausedMethod(), getCallOptions(), request);
-    }
-
-    /**
-     */
-    public com.scalar.admin.rpc.StatsResponse stats(com.google.protobuf.Empty request) {
-      return io.grpc.stub.ClientCalls.blockingUnaryCall(
-          getChannel(), getStatsMethod(), getCallOptions(), request);
     }
   }
 
@@ -376,20 +316,11 @@ public final class AdminGrpc {
       return io.grpc.stub.ClientCalls.futureUnaryCall(
           getChannel().newCall(getCheckPausedMethod(), getCallOptions()), request);
     }
-
-    /**
-     */
-    public com.google.common.util.concurrent.ListenableFuture<com.scalar.admin.rpc.StatsResponse> stats(
-        com.google.protobuf.Empty request) {
-      return io.grpc.stub.ClientCalls.futureUnaryCall(
-          getChannel().newCall(getStatsMethod(), getCallOptions()), request);
-    }
   }
 
   private static final int METHODID_PAUSE = 0;
   private static final int METHODID_UNPAUSE = 1;
   private static final int METHODID_CHECK_PAUSED = 2;
-  private static final int METHODID_STATS = 3;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -419,10 +350,6 @@ public final class AdminGrpc {
         case METHODID_CHECK_PAUSED:
           serviceImpl.checkPaused((com.google.protobuf.Empty) request,
               (io.grpc.stub.StreamObserver<com.scalar.admin.rpc.CheckPausedResponse>) responseObserver);
-          break;
-        case METHODID_STATS:
-          serviceImpl.stats((com.google.protobuf.Empty) request,
-              (io.grpc.stub.StreamObserver<com.scalar.admin.rpc.StatsResponse>) responseObserver);
           break;
         default:
           throw new AssertionError();
@@ -488,7 +415,6 @@ public final class AdminGrpc {
               .addMethod(getPauseMethod())
               .addMethod(getUnpauseMethod())
               .addMethod(getCheckPausedMethod())
-              .addMethod(getStatsMethod())
               .build();
         }
       }

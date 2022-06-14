@@ -69,9 +69,6 @@ public class AdminCommand implements Callable<Integer> {
         System.out.println("Unpause started at " + getCurrentTimeWithFormat());
         coordinator.unpause();
         break;
-      case STATS:
-        printJson(coordinator.stats());
-        break;
       case CHECK_PAUSED:
         printJson(coordinator.checkPaused());
         break;
