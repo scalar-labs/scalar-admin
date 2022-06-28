@@ -4,3 +4,4 @@
 src/
 example/
 tsconfig.json
+__tests__
