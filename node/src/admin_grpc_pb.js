@@ -38,17 +38,6 @@ function deserialize_rpc_PauseRequest(buffer_arg) {
   return admin_pb.PauseRequest.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
-function serialize_rpc_StatsResponse(arg) {
-  if (!(arg instanceof admin_pb.StatsResponse)) {
-    throw new Error('Expected argument of type rpc.StatsResponse');
-  }
-  return Buffer.from(arg.serializeBinary());
-}
-
-function deserialize_rpc_StatsResponse(buffer_arg) {
-  return admin_pb.StatsResponse.deserializeBinary(new Uint8Array(buffer_arg));
-}
-
 
 var AdminService = exports.AdminService = {
   pause: {
@@ -83,17 +72,6 @@ var AdminService = exports.AdminService = {
     requestDeserialize: deserialize_google_protobuf_Empty,
     responseSerialize: serialize_rpc_CheckPausedResponse,
     responseDeserialize: deserialize_rpc_CheckPausedResponse,
-  },
-  stats: {
-    path: '/rpc.Admin/Stats',
-    requestStream: false,
-    responseStream: false,
-    requestType: google_protobuf_empty_pb.Empty,
-    responseType: admin_pb.StatsResponse,
-    requestSerialize: serialize_google_protobuf_Empty,
-    requestDeserialize: deserialize_google_protobuf_Empty,
-    responseSerialize: serialize_rpc_StatsResponse,
-    responseDeserialize: deserialize_rpc_StatsResponse,
   },
 };
 
