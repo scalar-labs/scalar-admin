@@ -14,22 +14,32 @@ jest.mock('dns', () => ({
   },
 }));
 
-const markedAdminClient = {
+const markedAdminClientForIp1 = {
   pause: jest.fn(() => Promise.resolve()),
   unpause: jest.fn(() => Promise.resolve()),
   checkPaused: jest.fn(() => Promise.resolve(false)),
-  getHost: jest.fn(),
+  getHost: jest.fn(() => 'ip1'),
 };
 
+const markedAdminClientForIp2 = {
+  pause: jest.fn(() => Promise.resolve()),
+  unpause: jest.fn(() => Promise.resolve()),
+  checkPaused: jest.fn(() => Promise.resolve(false)),
+  getHost: jest.fn(() => 'ip2'),
+};
+
+const markedAdminClientConstructor = jest.fn();
+
 jest.mock('../src/admin_client', () => ({
-  AdminClient: jest.fn(() => markedAdminClient),
+  AdminClient: markedAdminClientConstructor,
 }));
 
 import {RequestCoordinator} from '../src/request_coordinator';
 
 beforeEach(() => {
-  markedAdminClient.pause.mockRestore();
-  markedAdminClient.unpause.mockRestore();
+  markedAdminClientConstructor
+    .mockReturnValueOnce(markedAdminClientForIp1)
+    .mockReturnValueOnce(markedAdminClientForIp2);
 });
 
 test('pause successfully', async () => {
@@ -37,19 +47,22 @@ test('pause successfully', async () => {
 
   await coordinator.pause(false);
 
-  expect(markedAdminClient.pause).toBeCalledWith(false, null);
-  expect(markedAdminClient.pause).toBeCalledTimes(2);
+  expect(markedAdminClientForIp1.pause).toBeCalledWith(false, null);
+  expect(markedAdminClientForIp2.pause).toBeCalledWith(false, null);
+  expect(markedAdminClientForIp1.pause).toBeCalled();
+  expect(markedAdminClientForIp2.pause).toBeCalled();
 });
 
 test('pause unsuccessfully', async () => {
-  markedAdminClient.pause = jest.fn(() => Promise.reject(new Error()));
+  markedAdminClientForIp1.pause = jest.fn(() => Promise.reject(new Error()));
 
   const coordinator = new RequestCoordinator('srv');
 
   await coordinator.pause(false);
 
-  expect(markedAdminClient.pause).toBeCalledWith(false, null);
-  expect(markedAdminClient.unpause).toBeCalledTimes(2);
+  expect(markedAdminClientForIp1.pause).toBeCalledWith(false, null);
+  expect(markedAdminClientForIp1.unpause).toBeCalled();
+  expect(markedAdminClientForIp2.unpause).toBeCalled();
 });
 
 test('unpause successfully', async () => {
@@ -57,11 +70,12 @@ test('unpause successfully', async () => {
 
   await coordinator.unpause();
 
-  expect(markedAdminClient.unpause).toBeCalledTimes(2);
+  expect(markedAdminClientForIp1.unpause).toBeCalled();
+  expect(markedAdminClientForIp2.unpause).toBeCalled();
 });
 
 test('unpause unsuccessfully', async () => {
-  markedAdminClient.unpause = jest.fn(() =>
+  markedAdminClientForIp1.unpause = jest.fn(() =>
     Promise.reject(new Error('unpause error'))
   );
 
@@ -73,10 +87,6 @@ test('unpause unsuccessfully', async () => {
 test('checkPaused successfully', async () => {
   const coordinator = new RequestCoordinator('srv');
 
-  markedAdminClient.getHost
-    .mockReturnValueOnce('ip1')
-    .mockReturnValueOnce('ip2');
-
   const paused = await coordinator.checkPaused();
 
   expect(paused).toEqual([
@@ -86,7 +96,7 @@ test('checkPaused successfully', async () => {
 });
 
 test('checkPaused unsuccessfully', async () => {
-  markedAdminClient.checkPaused = jest.fn(() =>
+  markedAdminClientForIp1.checkPaused = jest.fn(() =>
     Promise.reject('checkPaused error')
   );
 
