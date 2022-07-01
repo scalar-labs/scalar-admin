@@ -18,7 +18,7 @@ const markedAdminClient = {
   pause: jest.fn(() => Promise.resolve()),
   unpause: jest.fn(() => Promise.resolve()),
   checkPaused: jest.fn(() => Promise.resolve(false)),
-  getHost: jest.fn(() => 'host'),
+  getHost: jest.fn(),
 };
 
 jest.mock('../src/admin_client', () => ({
@@ -73,11 +73,15 @@ test('unpause unsuccessfully', async () => {
 test('checkPaused successfully', async () => {
   const coordinator = new RequestCoordinator('srv');
 
+  markedAdminClient.getHost
+    .mockReturnValueOnce('ip1')
+    .mockReturnValueOnce('ip2');
+
   const paused = await coordinator.checkPaused();
 
   expect(paused).toEqual([
-    {host: 'host', paused: false},
-    {host: 'host', paused: false},
+    {host: 'ip1', paused: false},
+    {host: 'ip2', paused: false},
   ]);
 });
 
