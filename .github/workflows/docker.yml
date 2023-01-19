@@ -3,7 +3,7 @@ name: Docker Image Publication
 on:
   push:
     tags:
-      - java-[0-9]+.[0-9]+.[0-9]+
+      - v[0-9]+.[0-9]+.[0-9]+
 
 jobs:
   publish:
@@ -17,7 +17,7 @@ jobs:
       - name: Set version
         id: version
         run: |
-          VERSION=$(echo ${{ github.ref }} | sed -e "s#refs/tags/java-##g")
+          VERSION=$(echo ${{ github.ref }} | sed -e "s#refs/tags/v##g")
           echo ::set-output name=version::${VERSION}
 
       - name: Login to GitHub Container Registry
