@@ -14,11 +14,13 @@ jobs:
         working-directory: java
 
     steps:
+      - uses: actions/checkout@v2
+
       - name: Set version
         id: version
         run: |
           VERSION=$(echo ${{ github.ref }} | sed -e "s#refs/tags/v##g")
-          echo ::set-output name=version::${VERSION}
+          echo "version=${VERSION}" >> $GITHUB_OUTPUT
 
       - name: Login to GitHub Container Registry
         uses: docker/login-action@v1
