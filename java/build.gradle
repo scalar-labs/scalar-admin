@@ -14,8 +14,8 @@ repositories {
     mavenCentral()
 }
 
-def grpcVersion = '1.43.2'
-def protobufVersion = '3.19.2'
+def grpcVersion = '1.51.0'
+def protobufVersion = '3.21.12'
 def slf4jVersion = '1.7.36'
 def log4jVersion = '2.19.0'
 
