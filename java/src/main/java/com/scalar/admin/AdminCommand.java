@@ -1,10 +1,13 @@
 package com.scalar.admin;
 
 import java.io.StringWriter;
+import java.net.InetSocketAddress;
 import java.time.Instant;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Callable;
+import java.util.stream.Collectors;
 import javax.json.Json;
 import javax.json.JsonObject;
 import javax.json.JsonWriter;
@@ -28,10 +31,16 @@ public class AdminCommand implements Callable<Integer> {
 
   @CommandLine.Option(
       names = {"--srv-service-url", "-s"},
-      required = true,
       paramLabel = "SRV_SERVICE_URL",
       description = "A service URL of SRV record.")
   private String srvServiceUrl;
+
+  @CommandLine.Option(
+      names = {"--addresses", "-a"},
+      split = ",",
+      paramLabel = "ADDRESSES",
+      description = "A list of {ip}:{port} separated by comma.")
+  private List<String> addresses;
 
   @CommandLine.Option(
       names = {"--no-wait", "-n"},
@@ -59,7 +68,31 @@ public class AdminCommand implements Callable<Integer> {
 
   @Override
   public Integer call() {
-    RequestCoordinator coordinator = new RequestCoordinator(srvServiceUrl);
+    RequestCoordinator coordinator;
+
+    if (srvServiceUrl != null) {
+      coordinator = new RequestCoordinator(srvServiceUrl);
+    } else if (addresses != null) {
+      coordinator =
+          new RequestCoordinator(
+              addresses.stream()
+                  .map(
+                      a -> {
+                        String[] hostAndPort = a.split(":");
+                        if (hostAndPort.length != 2) {
+                          throw new IllegalArgumentException(
+                              "Invalid address format. Expected {ip}:{port} but got " + a);
+                        }
+
+                        return new InetSocketAddress(
+                            hostAndPort[0], Integer.parseInt(hostAndPort[1]));
+                      })
+                  .collect(Collectors.toList()));
+    } else {
+      throw new IllegalArgumentException(
+          "Either [--srv-service-url, -s] or [--addresses, -a] is required.");
+    }
+
     switch (command) {
       case PAUSE:
         coordinator.pause(!noWait, maxPauseWaitTime);
