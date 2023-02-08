@@ -70,7 +70,10 @@ public class AdminCommand implements Callable<Integer> {
   public Integer call() {
     RequestCoordinator coordinator;
 
-    if (srvServiceUrl != null) {
+    if (srvServiceUrl != null && addresses != null) {
+      throw new IllegalArgumentException(
+          "Specify only either [--srv-service-url, -s] or [--addresses, -a].");
+    } else if (srvServiceUrl != null) {
       coordinator = new RequestCoordinator(srvServiceUrl);
     } else if (addresses != null) {
       coordinator =
