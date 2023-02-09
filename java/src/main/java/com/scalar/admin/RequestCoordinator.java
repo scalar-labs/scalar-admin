@@ -60,13 +60,9 @@ public class RequestCoordinator {
   private Map<String, String> run(Function<AdminClient, Optional<String>> function) {
     // Assume that the list of addresses for unpause is the same as the one for pause.
     if (addresses == null) {
-      List<SRVRecord> records = getApplicationIps(srvServiceUrl);
       addresses =
-          records.stream()
-              .map(
-                  r -> {
-                    return new InetSocketAddress(r.getTarget().toString(true), r.getPort());
-                  })
+          getApplicationIps(srvServiceUrl).stream()
+              .map(r -> new InetSocketAddress(r.getTarget().toString(true), r.getPort()))
               .collect(Collectors.toList());
     }
 

@@ -68,11 +68,12 @@ public class AdminCommand implements Callable<Integer> {
 
   @Override
   public Integer call() {
-    RequestCoordinator coordinator;
+    RequestCoordinator coordinator = null;
 
-    if (srvServiceUrl != null && addresses != null) {
+    if ((srvServiceUrl != null && addresses != null)
+        || (srvServiceUrl == null && addresses == null)) {
       throw new IllegalArgumentException(
-          "Specify only either [--srv-service-url, -s] or [--addresses, -a].");
+          "It's required to specify only either [--srv-service-url, -s] or [--addresses, -a].");
     } else if (srvServiceUrl != null) {
       coordinator = new RequestCoordinator(srvServiceUrl);
     } else if (addresses != null) {
@@ -91,9 +92,6 @@ public class AdminCommand implements Callable<Integer> {
                             hostAndPort[0], Integer.parseInt(hostAndPort[1]));
                       })
                   .collect(Collectors.toList()));
-    } else {
-      throw new IllegalArgumentException(
-          "Either [--srv-service-url, -s] or [--addresses, -a] is required.");
     }
 
     switch (command) {
