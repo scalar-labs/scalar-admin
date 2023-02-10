@@ -9,6 +9,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import com.scalar.admin.exception.AdminException;
+import java.net.InetSocketAddress;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -72,6 +73,36 @@ public class RequestCoordinatorTest {
   }
 
   @Test
+  public void pause_InetSocketAddressListGiven_ShouldPauseAll() {
+    // Arrange
+    coordinator = // Override setUp
+        Mockito.spy(
+            new RequestCoordinator(
+                Arrays.asList(
+                    new InetSocketAddress(APP_IP1, PORT),
+                    new InetSocketAddress(APP_IP2, PORT),
+                    new InetSocketAddress(APP_IP3, PORT))));
+
+    AdminClient client1 = mock(AdminClient.class);
+    when(coordinator.getClient(APP_IP1, PORT)).thenReturn(client1);
+    AdminClient client2 = mock(AdminClient.class);
+    when(coordinator.getClient(APP_IP2, PORT)).thenReturn(client2);
+    AdminClient client3 = mock(AdminClient.class);
+    when(coordinator.getClient(APP_IP3, PORT)).thenReturn(client3);
+
+    // Act
+    coordinator.pause(true, MAX_PAUSE_WAIT_TIME);
+
+    // Assert
+    verify(coordinator).getClient(APP_IP1, PORT);
+    verify(client1).pause(true, MAX_PAUSE_WAIT_TIME);
+    verify(coordinator).getClient(APP_IP2, PORT);
+    verify(client2).pause(true, MAX_PAUSE_WAIT_TIME);
+    verify(coordinator).getClient(APP_IP3, PORT);
+    verify(client3).pause(true, MAX_PAUSE_WAIT_TIME);
+  }
+
+  @Test
   public void pause_SomeExceptionThrown_ShouldThrowAdminException() throws TextParseException {
     // Arrange
     List<SRVRecord> records = prepareSrvRecords();
@@ -115,6 +146,36 @@ public class RequestCoordinatorTest {
   }
 
   @Test
+  public void unpause_InetSocketAddressListGiven_ShouldUnpauseAll() {
+    // Arrange
+    coordinator = // Override setUp
+        Mockito.spy(
+            new RequestCoordinator(
+                Arrays.asList(
+                    new InetSocketAddress(APP_IP1, PORT),
+                    new InetSocketAddress(APP_IP2, PORT),
+                    new InetSocketAddress(APP_IP3, PORT))));
+
+    AdminClient client1 = mock(AdminClient.class);
+    when(coordinator.getClient(APP_IP1, PORT)).thenReturn(client1);
+    AdminClient client2 = mock(AdminClient.class);
+    when(coordinator.getClient(APP_IP2, PORT)).thenReturn(client2);
+    AdminClient client3 = mock(AdminClient.class);
+    when(coordinator.getClient(APP_IP3, PORT)).thenReturn(client3);
+
+    // Act
+    coordinator.unpause();
+
+    // Assert
+    verify(coordinator).getClient(APP_IP1, PORT);
+    verify(client1).unpause();
+    verify(coordinator).getClient(APP_IP2, PORT);
+    verify(client2).unpause();
+    verify(coordinator).getClient(APP_IP3, PORT);
+    verify(client3).unpause();
+  }
+
+  @Test
   public void unpause_SomeExceptionThrown_ShouldThrowAdminException() throws TextParseException {
     // Arrange
     List<SRVRecord> records = prepareSrvRecords();
@@ -133,10 +194,51 @@ public class RequestCoordinatorTest {
   }
 
   @Test
-  public void paused_SrvServiceUrlGiven_ShouldReturnGetAll() throws TextParseException {
+  public void checkPaused_SrvServiceUrlGiven_ShouldReturnGetAll() throws TextParseException {
     // Arrange
     List<SRVRecord> records = prepareSrvRecords();
     doReturn(records).when(coordinator).getApplicationIps(SRV_SERVICE_URL);
+    AdminClient client1 = mock(AdminClient.class);
+    when(coordinator.getClient(APP_IP1, PORT)).thenReturn(client1);
+    when(client1.checkPaused()).thenReturn(Optional.of("false"));
+    AdminClient client2 = mock(AdminClient.class);
+    when(coordinator.getClient(APP_IP2, PORT)).thenReturn(client2);
+    when(client2.checkPaused()).thenReturn(Optional.of("false"));
+    AdminClient client3 = mock(AdminClient.class);
+    when(coordinator.getClient(APP_IP3, PORT)).thenReturn(client3);
+    when(client3.checkPaused()).thenReturn(Optional.of("false"));
+
+    // Act
+    JsonObject actual = coordinator.checkPaused();
+
+    // Assert
+    verify(coordinator).getClient(APP_IP1, PORT);
+    verify(client1).checkPaused();
+    verify(coordinator).getClient(APP_IP2, PORT);
+    verify(client2).checkPaused();
+    verify(coordinator).getClient(APP_IP3, PORT);
+    verify(client3).checkPaused();
+
+    JsonObject expected =
+        Json.createObjectBuilder()
+            .add(APP_IP1 + ":" + PORT, "false")
+            .add(APP_IP2 + ":" + PORT, "false")
+            .add(APP_IP3 + ":" + PORT, "false")
+            .build();
+    assertThat(actual).isEqualTo(expected);
+  }
+
+  @Test
+  public void checkPaused_InetSocketAddressListGiven_ShouldReturnGetAll() {
+    // Arrange
+    coordinator = // Override setUp
+        Mockito.spy(
+            new RequestCoordinator(
+                Arrays.asList(
+                    new InetSocketAddress(APP_IP1, PORT),
+                    new InetSocketAddress(APP_IP2, PORT),
+                    new InetSocketAddress(APP_IP3, PORT))));
+
     AdminClient client1 = mock(AdminClient.class);
     when(coordinator.getClient(APP_IP1, PORT)).thenReturn(client1);
     when(client1.checkPaused()).thenReturn(Optional.of("false"));

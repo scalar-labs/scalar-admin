@@ -2,6 +2,7 @@ package com.scalar.admin;
 
 import com.google.common.annotations.VisibleForTesting;
 import com.scalar.admin.exception.AdminException;
+import java.net.InetSocketAddress;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -14,6 +15,7 @@ import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 import javax.json.Json;
@@ -30,10 +32,15 @@ import org.xbill.DNS.Type;
 @Immutable
 public class RequestCoordinator {
   private static final Logger logger = LoggerFactory.getLogger(RequestCoordinator.class);
-  private final String srvServiceUrl;
+  private String srvServiceUrl;
+  private List<InetSocketAddress> addresses;
 
   public RequestCoordinator(String srvServiceUrl) {
     this.srvServiceUrl = srvServiceUrl;
+  }
+
+  public RequestCoordinator(List<InetSocketAddress> addresses) {
+    this.addresses = addresses;
   }
 
   public void pause(boolean waitOutstanding, @Nullable Long maxPauseWaitTime) {
@@ -52,25 +59,31 @@ public class RequestCoordinator {
 
   private Map<String, String> run(Function<AdminClient, Optional<String>> function) {
     // Assume that the list of addresses for unpause is the same as the one for pause.
-    List<SRVRecord> records = getApplicationIps(srvServiceUrl);
+    if (addresses == null) {
+      addresses =
+          getApplicationIps(srvServiceUrl).stream()
+              .map(r -> new InetSocketAddress(r.getTarget().toString(true), r.getPort()))
+              .collect(Collectors.toList());
+    }
 
     ExecutorService executor = Executors.newCachedThreadPool();
     Map<String, Future<Optional<String>>> futures = new HashMap<>();
-    records.forEach(
-        record -> {
-          String target = record.getTarget().toString(true);
-          String address = target + ":" + record.getPort();
+    addresses.forEach(
+        address -> {
+          String host = address.getHostString();
+          int port = address.getPort();
+
           // use Callable to propagate exceptions
           Callable<Optional<String>> task =
               () -> {
-                try (AdminClient client = getClient(target, record.getPort())) {
+                try (AdminClient client = getClient(host, port)) {
                   return function.apply(client);
                 } catch (Exception e) {
                   logger.error(function.toString() + " failed.", e);
                   throw new AdminException(e);
                 }
               };
-          futures.put(address, executor.submit(task));
+          futures.put(host + ":" + port, executor.submit(task));
         });
     executor.shutdown();
 
