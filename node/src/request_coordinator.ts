@@ -1,9 +1,14 @@
-import {promises as DNS, SrvRecord} from 'dns';
+import {promises as DNS} from 'dns';
 import {AdminClient} from './admin_client';
 
 export type CheckPausedResopnse = {
   host: string;
   paused: boolean;
+};
+
+export type Address = {
+  ip: string;
+  port: number;
 };
 
 /**
@@ -12,24 +17,25 @@ export type CheckPausedResopnse = {
 export class RequestCoordinator {
   resolver: DNS.Resolver;
 
-  constructor(private srvServiceUrl: string) {
+  constructor(private targets: string | Address[]) {
     this.resolver = new DNS.Resolver();
   }
 
   async resolveClients(): Promise<AdminClient[]> {
-    const clients: AdminClient[] = [];
-    const resolved: SrvRecord[] = await this.resolver.resolveSrv(
-      this.srvServiceUrl
-    );
+    let addresses: Address[] = [];
 
-    for (const record of resolved) {
-      const ips = await this.resolver.resolve4(record.name);
-      for (const ip of ips) {
-        clients.push(new AdminClient(ip, record.port));
+    if (typeof this.targets === 'string') {
+      for (const r of await this.resolver.resolveSrv(this.targets)) {
+        const ips = await this.resolver.resolve4(r.name);
+        for (const ip of ips) {
+          addresses.push({ip, port: r.port});
+        }
       }
+    } else if (Array.isArray(this.targets)) {
+      addresses = this.targets;
     }
 
-    return clients;
+    return addresses.map(a => new AdminClient(a.ip, a.port));
   }
 
   /**

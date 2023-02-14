@@ -37,6 +37,7 @@ jest.mock('../src/admin_client', () => ({
 import {RequestCoordinator} from '../src/request_coordinator';
 
 beforeEach(() => {
+  markedAdminClientConstructor.mockClear();
   markedAdminClientConstructor
     .mockReturnValueOnce(markedAdminClientForIp1)
     .mockReturnValueOnce(markedAdminClientForIp2);
@@ -44,6 +45,20 @@ beforeEach(() => {
 
 test('pause successfully', async () => {
   const coordinator = new RequestCoordinator('srv');
+
+  await coordinator.pause(false);
+
+  expect(markedAdminClientForIp1.pause).toBeCalledWith(false, null);
+  expect(markedAdminClientForIp2.pause).toBeCalledWith(false, null);
+  expect(markedAdminClientForIp1.pause).toBeCalled();
+  expect(markedAdminClientForIp2.pause).toBeCalled();
+});
+
+test('pause with ip/port successfully', async () => {
+  const coordinator = new RequestCoordinator([
+    {ip: 'ip1', port: 0},
+    {ip: 'ip2', port: 0},
+  ]);
 
   await coordinator.pause(false);
 
@@ -74,6 +89,18 @@ test('unpause successfully', async () => {
   expect(markedAdminClientForIp2.unpause).toBeCalled();
 });
 
+test('unpause with ip/port successfully', async () => {
+  const coordinator = new RequestCoordinator([
+    {ip: 'ip1', port: 0},
+    {ip: 'ip2', port: 0},
+  ]);
+
+  await coordinator.unpause();
+
+  expect(markedAdminClientForIp1.unpause).toBeCalled();
+  expect(markedAdminClientForIp2.unpause).toBeCalled();
+});
+
 test('unpause unsuccessfully', async () => {
   markedAdminClientForIp1.unpause = jest.fn(() =>
     Promise.reject(new Error('unpause error'))
@@ -89,6 +116,22 @@ test('checkPaused successfully', async () => {
 
   const paused = await coordinator.checkPaused();
 
+  expect(paused).toEqual([
+    {host: 'ip1', paused: false},
+    {host: 'ip2', paused: false},
+  ]);
+});
+
+test('checkPaused with ip/port successfully', async () => {
+  const coordinator = new RequestCoordinator([
+    {ip: 'ip3', port: 1},
+    {ip: 'ip4', port: 2},
+  ]);
+
+  const paused = await coordinator.checkPaused();
+
+  expect(markedAdminClientConstructor).toBeCalledWith('ip3', 1);
+  expect(markedAdminClientConstructor).toBeCalledWith('ip4', 2);
   expect(paused).toEqual([
     {host: 'ip1', paused: false},
     {host: 'ip2', paused: false},
