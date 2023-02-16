@@ -1,4 +1,4 @@
-FROM ghcr.io/scalar-labs/jre8:1.1.10
+FROM ghcr.io/scalar-labs/jre8:1.1.11
 
 WORKDIR /scalar
 
