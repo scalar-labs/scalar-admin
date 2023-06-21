@@ -97,6 +97,11 @@ shadowJar {
     mergeServiceFiles()
 }
 
+java {
+    withJavadocJar()
+    withSourcesJar()
+}
+
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
