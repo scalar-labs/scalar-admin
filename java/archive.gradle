@@ -5,9 +5,7 @@ publishing {
     publications {
         mavenJava(MavenPublication) {
             artifactId = 'scalar-admin'
-            artifact jar
-            artifact javadocJar
-            artifact sourcesJar
+            from components.java
             pom {
                 name = 'Scalar Admin'
                 description = 'An admin interface and tool for Scalar services.'
