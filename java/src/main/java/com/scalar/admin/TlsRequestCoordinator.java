@@ -8,8 +8,8 @@ import javax.annotation.concurrent.Immutable;
 @Immutable
 public class TlsRequestCoordinator extends RequestCoordinator {
 
-  private final String caRootCert;
-  private final String overrideAuthority;
+  @Nullable private final String caRootCert;
+  @Nullable private final String overrideAuthority;
 
   public TlsRequestCoordinator(
       String srvServiceUrl, @Nullable String caRootCert, @Nullable String overrideAuthority) {
