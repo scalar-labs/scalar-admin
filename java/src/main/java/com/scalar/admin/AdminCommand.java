@@ -1,7 +1,12 @@
 package com.scalar.admin;
 
+import java.io.File;
+import java.io.IOException;
 import java.io.StringWriter;
+import java.io.UncheckedIOException;
 import java.net.InetSocketAddress;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.time.Instant;
 import java.util.HashMap;
 import java.util.List;
@@ -55,6 +60,33 @@ public class AdminCommand implements Callable<Integer> {
   private Long maxPauseWaitTime;
 
   @CommandLine.Option(
+      names = {"--tls"},
+      description = "Whether wire encryption (TLS) between scalar-admin and the target is enabled.")
+  private boolean tlsEnabled;
+
+  @CommandLine.Option(
+      names = {"--ca-root-cert-path"},
+      description =
+          "A path to a root certificate file for verifying the server's certificate when wire"
+              + " encryption is enabled.")
+  private String caRootCertPath;
+
+  @CommandLine.Option(
+      names = {"--ca-root-cert-pem"},
+      description =
+          "A PEM format string of a root certificate for verifying the server's certificate when"
+              + " wire encryption is enabled. This option is prioritized when --ca-root-cert-path"
+              + " is specified.")
+  private String caRootCertPem;
+
+  @CommandLine.Option(
+      names = {"--override-authority"},
+      description =
+          "The value to be used as the expected authority in the server's certificate when wire"
+              + " encryption is enabled.")
+  private String overrideAuthority;
+
+  @CommandLine.Option(
       names = {"-h", "--help"},
       usageHelp = true,
       description = "display the help message.")
@@ -75,10 +107,10 @@ public class AdminCommand implements Callable<Integer> {
       throw new IllegalArgumentException(
           "It's required to specify only either [--srv-service-url, -s] or [--addresses, -a].");
     } else if (srvServiceUrl != null) {
-      coordinator = new RequestCoordinator(srvServiceUrl);
-    } else if (addresses != null) {
+      coordinator = createCoordinator(srvServiceUrl);
+    } else { // addresses != null
       coordinator =
-          new RequestCoordinator(
+          createCoordinator(
               addresses.stream()
                   .map(
                       a -> {
@@ -123,5 +155,35 @@ public class AdminCommand implements Callable<Integer> {
   static String getCurrentTimeWithFormat() {
     Instant instant = Instant.now();
     return instant + " UTC (" + instant.toEpochMilli() + ")";
+  }
+
+  private RequestCoordinator createCoordinator(String srvServiceUrl) {
+    return tlsEnabled
+        ? new TlsRequestCoordinator(srvServiceUrl, getCaRootCert(), overrideAuthority)
+        : new RequestCoordinator(srvServiceUrl);
+  }
+
+  private RequestCoordinator createCoordinator(List<InetSocketAddress> addresses) {
+    return tlsEnabled
+        ? new TlsRequestCoordinator(addresses, getCaRootCert(), overrideAuthority)
+        : new RequestCoordinator(addresses);
+  }
+
+  private String getCaRootCert() {
+    String caRootCert = null;
+
+    if (caRootCertPem != null) {
+      caRootCert = caRootCertPem.replace("\\n", System.lineSeparator());
+    } else if (caRootCertPath != null) {
+      try {
+        caRootCert =
+            new String(
+                Files.readAllBytes(new File(caRootCertPath).toPath()), StandardCharsets.UTF_8);
+      } catch (IOException e) {
+        throw new UncheckedIOException("Couldn't read the file: " + caRootCertPath, e);
+      }
+    }
+
+    return caRootCert;
   }
 }
