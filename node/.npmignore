@@ -1,7 +1,0 @@
-.eslintignore
-.eslintrc.json
-.prettierrc.js
-src/
-example/
-tsconfig.json
-__tests__
