@@ -24,11 +24,11 @@ jobs:
 
       - name: Upload the package to Maven Central Repository
         run: |
-          echo "${{ secrets.SIGNING_SECRET_KEY_RING }}" | base64 -d > ~/.gradle/secring.gpg
+          echo "${{ secrets.SIGNING_SECRET_KEY_RING }}" | base64 -d > /tmp/secring.gpg
           ./gradlew publish \
           -Pversion="${{ steps.version.outputs.version }}" \
           -Psigning.keyId="${{ secrets.SIGNING_KEY_ID }}" \
           -Psigning.password="${{ secrets.SIGNING_PASSWORD }}" \
-          -Psigning.secretKeyRingFile="$(echo ~/.gradle/secring.gpg)" \
+          -Psigning.secretKeyRingFile="$(echo /tmp/secring.gpg)" \
           -PossrhUsername="${{ secrets.OSSRH_USERNAMAE }}" \
           -PossrhPassword="${{ secrets.OSSRH_PASSWORD }}"
