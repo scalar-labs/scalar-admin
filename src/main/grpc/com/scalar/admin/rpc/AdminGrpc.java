@@ -5,14 +5,14 @@ import static io.grpc.MethodDescriptor.generateFullMethodName;
 /**
  */
 @javax.annotation.Generated(
-    value = "by gRPC proto compiler (version 1.51.0)",
+    value = "by gRPC proto compiler (version 1.60.2)",
     comments = "Source: scalar/protobuf/admin.proto")
 @io.grpc.stub.annotations.GrpcGenerated
 public final class AdminGrpc {
 
   private AdminGrpc() {}
 
-  public static final String SERVICE_NAME = "rpc.Admin";
+  public static final java.lang.String SERVICE_NAME = "rpc.Admin";
 
   // Static method descriptors that strictly reflect the proto.
   private static volatile io.grpc.MethodDescriptor<com.scalar.admin.rpc.PauseRequest,
@@ -154,59 +154,46 @@ public final class AdminGrpc {
 
   /**
    */
-  public static abstract class AdminImplBase implements io.grpc.BindableService {
+  public interface AsyncService {
 
     /**
      */
-    public void pause(com.scalar.admin.rpc.PauseRequest request,
+    default void pause(com.scalar.admin.rpc.PauseRequest request,
         io.grpc.stub.StreamObserver<com.google.protobuf.Empty> responseObserver) {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getPauseMethod(), responseObserver);
     }
 
     /**
      */
-    public void unpause(com.google.protobuf.Empty request,
+    default void unpause(com.google.protobuf.Empty request,
         io.grpc.stub.StreamObserver<com.google.protobuf.Empty> responseObserver) {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getUnpauseMethod(), responseObserver);
     }
 
     /**
      */
-    public void checkPaused(com.google.protobuf.Empty request,
+    default void checkPaused(com.google.protobuf.Empty request,
         io.grpc.stub.StreamObserver<com.scalar.admin.rpc.CheckPausedResponse> responseObserver) {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getCheckPausedMethod(), responseObserver);
-    }
-
-    @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
-      return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
-          .addMethod(
-            getPauseMethod(),
-            io.grpc.stub.ServerCalls.asyncUnaryCall(
-              new MethodHandlers<
-                com.scalar.admin.rpc.PauseRequest,
-                com.google.protobuf.Empty>(
-                  this, METHODID_PAUSE)))
-          .addMethod(
-            getUnpauseMethod(),
-            io.grpc.stub.ServerCalls.asyncUnaryCall(
-              new MethodHandlers<
-                com.google.protobuf.Empty,
-                com.google.protobuf.Empty>(
-                  this, METHODID_UNPAUSE)))
-          .addMethod(
-            getCheckPausedMethod(),
-            io.grpc.stub.ServerCalls.asyncUnaryCall(
-              new MethodHandlers<
-                com.google.protobuf.Empty,
-                com.scalar.admin.rpc.CheckPausedResponse>(
-                  this, METHODID_CHECK_PAUSED)))
-          .build();
     }
   }
 
   /**
+   * Base class for the server implementation of the service Admin.
    */
-  public static final class AdminStub extends io.grpc.stub.AbstractAsyncStub<AdminStub> {
+  public static abstract class AdminImplBase
+      implements io.grpc.BindableService, AsyncService {
+
+    @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
+      return AdminGrpc.bindService(this);
+    }
+  }
+
+  /**
+   * A stub to allow clients to do asynchronous rpc calls to service Admin.
+   */
+  public static final class AdminStub
+      extends io.grpc.stub.AbstractAsyncStub<AdminStub> {
     private AdminStub(
         io.grpc.Channel channel, io.grpc.CallOptions callOptions) {
       super(channel, callOptions);
@@ -244,8 +231,10 @@ public final class AdminGrpc {
   }
 
   /**
+   * A stub to allow clients to do synchronous rpc calls to service Admin.
    */
-  public static final class AdminBlockingStub extends io.grpc.stub.AbstractBlockingStub<AdminBlockingStub> {
+  public static final class AdminBlockingStub
+      extends io.grpc.stub.AbstractBlockingStub<AdminBlockingStub> {
     private AdminBlockingStub(
         io.grpc.Channel channel, io.grpc.CallOptions callOptions) {
       super(channel, callOptions);
@@ -280,8 +269,10 @@ public final class AdminGrpc {
   }
 
   /**
+   * A stub to allow clients to do ListenableFuture-style rpc calls to service Admin.
    */
-  public static final class AdminFutureStub extends io.grpc.stub.AbstractFutureStub<AdminFutureStub> {
+  public static final class AdminFutureStub
+      extends io.grpc.stub.AbstractFutureStub<AdminFutureStub> {
     private AdminFutureStub(
         io.grpc.Channel channel, io.grpc.CallOptions callOptions) {
       super(channel, callOptions);
@@ -327,10 +318,10 @@ public final class AdminGrpc {
       io.grpc.stub.ServerCalls.ServerStreamingMethod<Req, Resp>,
       io.grpc.stub.ServerCalls.ClientStreamingMethod<Req, Resp>,
       io.grpc.stub.ServerCalls.BidiStreamingMethod<Req, Resp> {
-    private final AdminImplBase serviceImpl;
+    private final AsyncService serviceImpl;
     private final int methodId;
 
-    MethodHandlers(AdminImplBase serviceImpl, int methodId) {
+    MethodHandlers(AsyncService serviceImpl, int methodId) {
       this.serviceImpl = serviceImpl;
       this.methodId = methodId;
     }
@@ -367,6 +358,32 @@ public final class AdminGrpc {
     }
   }
 
+  public static final io.grpc.ServerServiceDefinition bindService(AsyncService service) {
+    return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
+        .addMethod(
+          getPauseMethod(),
+          io.grpc.stub.ServerCalls.asyncUnaryCall(
+            new MethodHandlers<
+              com.scalar.admin.rpc.PauseRequest,
+              com.google.protobuf.Empty>(
+                service, METHODID_PAUSE)))
+        .addMethod(
+          getUnpauseMethod(),
+          io.grpc.stub.ServerCalls.asyncUnaryCall(
+            new MethodHandlers<
+              com.google.protobuf.Empty,
+              com.google.protobuf.Empty>(
+                service, METHODID_UNPAUSE)))
+        .addMethod(
+          getCheckPausedMethod(),
+          io.grpc.stub.ServerCalls.asyncUnaryCall(
+            new MethodHandlers<
+              com.google.protobuf.Empty,
+              com.scalar.admin.rpc.CheckPausedResponse>(
+                service, METHODID_CHECK_PAUSED)))
+        .build();
+  }
+
   private static abstract class AdminBaseDescriptorSupplier
       implements io.grpc.protobuf.ProtoFileDescriptorSupplier, io.grpc.protobuf.ProtoServiceDescriptorSupplier {
     AdminBaseDescriptorSupplier() {}
@@ -390,9 +407,9 @@ public final class AdminGrpc {
   private static final class AdminMethodDescriptorSupplier
       extends AdminBaseDescriptorSupplier
       implements io.grpc.protobuf.ProtoMethodDescriptorSupplier {
-    private final String methodName;
+    private final java.lang.String methodName;
 
-    AdminMethodDescriptorSupplier(String methodName) {
+    AdminMethodDescriptorSupplier(java.lang.String methodName) {
       this.methodName = methodName;
     }
 
