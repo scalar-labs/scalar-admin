@@ -19,6 +19,7 @@ def protobufVersion = '3.25.3'
 def slf4jVersion = '1.7.36'
 def log4jVersion = '2.23.1'
 def picoCliVersion = '4.7.5'
+def jakartaJsonApiVersion = '1.1.6'
 def jakartaJsonVersion = '1.1.6'
 def jakartaAnnotationVersion = '1.3.5'
 def dnsJavaVersion = '2.1.9'
@@ -33,6 +34,7 @@ dependencies {
     implementation "org.apache.logging.log4j:log4j-core:${log4jVersion}"
     implementation "org.apache.logging.log4j:log4j-slf4j-impl:${log4jVersion}"
     implementation "info.picocli:picocli:${picoCliVersion}"
+    implementation "jakarta.json:jakarta.json-api:${jakartaJsonApiVersion}"
     implementation "org.glassfish:jakarta.json:${jakartaJsonVersion}"
     implementation "com.google.api.grpc:proto-google-common-protos:${protoGoogleCommonProtosVersion}"
     implementation "com.google.api.grpc:googleapis-common-protos:${googleapisCommonProtosVersion}"
