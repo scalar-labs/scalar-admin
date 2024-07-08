@@ -1,7 +1,7 @@
 # scalar-admin
 
-scalar-admin is an admin interface and client tool for Scalar services such as [Scalar DL](https://github.com/scalar-labs/scalardl) and [Scalar DB](https://github.com/scalar-labs/scalardb) applications. 
-It will help you to pause Scalar DL Ledger cluster or Scalar DB server cluster to create a transactionally-consistent backup.
+scalar-admin is an admin interface and client tool for Scalar services such as [ScalarDL](https://github.com/scalar-labs/scalardl) and [ScalarDB](https://github.com/scalar-labs/scalardb) applications.
+It will help you to pause ScalarDL Ledger cluster or ScalarDB server cluster to create a transactionally-consistent backup.
 
 ## scalar-admin client tool
 
@@ -39,9 +39,28 @@ $ ./gradlew docker
 
 You can run the fat jar as follows.
 
+
+```console
+
+$ java -jar scalar-admin-<version>-all.jar -c <COMMAND> -a <IP1:Port1,IP2:Port2,...>
+```
+
+The command above can take effect on multiple ScalarDB or ScalarDL instances in one shot.
+
+**NOTE** If you previously used the following command to pause and unpause Scalar pods in Kubernetes clusters,
+we recommend switching to [Scalar Admin for Kubernetes](https://github.com/scalar-labs/scalar-admin-for-kubernetes).
+
 ```console
 $ java -jar scalar-admin-<version>-all.jar -c <COMMAND> -s <SRV_SERVICE_URL>
 ```
+
+Using the `-s` option to pause and unpause Scalar pods in a Kubernetes cluster is error-prone.
+Scalar Admin doesn't check for orchestration changes during the pause/unpause period, while Scalar Admin for Kubernetes is tolerant of Kubernetes orchestration changes.
+
+This command is an FYI and we do not recommend using it.
+Please either use the `-a` option to explicitly pause or unpause Scalar instances, or consider using Scalar Admin for Kubernetes to pause and then unpause Scalar pods in a tolerant manner.
+
+We will deprecate this option in the next major release.
 
 #### Docker container
 
