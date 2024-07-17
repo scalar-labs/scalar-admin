@@ -1,7 +1,7 @@
 # scalar-admin
 
 scalar-admin is an admin interface and client tool for Scalar services such as [ScalarDL](https://github.com/scalar-labs/scalardl) and [ScalarDB](https://github.com/scalar-labs/scalardb) applications.
-It will help you to pause ScalarDL Ledger cluster or ScalarDB server cluster to create a transactionally-consistent backup.
+It will help you to pause ScalarDL Ledger, ScalarDL Auditor, and ScalarDB Cluster to create a transactionally-consistent backup.
 
 ## scalar-admin client tool
 
