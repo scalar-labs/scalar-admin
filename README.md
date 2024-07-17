@@ -41,7 +41,6 @@ You can run the fat jar as follows.
 
 
 ```console
-
 $ java -jar scalar-admin-<version>-all.jar -c <COMMAND> -a <IP1:Port1,IP2:Port2,...>
 ```
 
