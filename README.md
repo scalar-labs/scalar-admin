@@ -44,22 +44,16 @@ You can run the fat jar as follows.
 $ java -jar scalar-admin-<version>-all.jar -c <COMMAND> -a <IP1:Port1,IP2:Port2,...>
 ```
 
-The command above can take effect on multiple ScalarDB or ScalarDL instances in one shot.
-
-**NOTE** If you previously used the following command to pause and unpause Scalar pods in Kubernetes clusters,
-we recommend switching to [Scalar Admin for Kubernetes](https://github.com/scalar-labs/scalar-admin-for-kubernetes).
+**NOTE** If you previously used the following command, we recommend using the `-a` option instead since SRV has a known issue of returning asynchronous results. We will deprecate the `-s` option in the next major version.
 
 ```console
 $ java -jar scalar-admin-<version>-all.jar -c <COMMAND> -s <SRV_SERVICE_URL>
 ```
 
-Using the `-s` option to pause and unpause Scalar pods in a Kubernetes cluster is error-prone.
-Scalar Admin doesn't check for orchestration changes during the pause/unpause period, while Scalar Admin for Kubernetes is tolerant of Kubernetes orchestration changes.
+#### Use in Kubernetes clusters
 
-This command is an FYI and we do not recommend using it.
-Please either use the `-a` option to explicitly pause or unpause Scalar instances, or consider using Scalar Admin for Kubernetes to pause and then unpause Scalar pods in a tolerant manner.
-
-We will deprecate this option in the next major release.
+Using Scalar Admin in a Kubernetes cluster is error-prone because Scalar Admin doesn't check for orchestration changes.
+We recommend using [Scalar Admin for Kubernetes](https://github.com/scalar-labs/scalar-admin-for-kubernetes) for backup operations.
 
 #### Docker container
 
