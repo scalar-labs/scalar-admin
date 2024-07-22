@@ -18,6 +18,8 @@ import javax.json.JsonObject;
 import javax.json.JsonWriter;
 import javax.json.JsonWriterFactory;
 import javax.json.stream.JsonGenerator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import picocli.CommandLine;
 import picocli.CommandLine.Command;
 
@@ -26,6 +28,8 @@ import picocli.CommandLine.Command;
     description =
         "Execute an admin command for applications that implement scalar admin interface.")
 public class AdminCommand implements Callable<Integer> {
+
+  private static final Logger logger = LoggerFactory.getLogger(AdminCommand.class);
 
   @CommandLine.Option(
       names = {"--command", "-c"},
@@ -107,6 +111,9 @@ public class AdminCommand implements Callable<Integer> {
       throw new IllegalArgumentException(
           "It's required to specify only either [--srv-service-url, -s] or [--addresses, -a].");
     } else if (srvServiceUrl != null) {
+      logger.error(
+          "Warning: --srv-service-url, -s will be deprecated in the future. We recommend using"
+              + " --addresses, -a instead.");
       coordinator = createCoordinator(srvServiceUrl);
     } else { // addresses != null
       coordinator =
@@ -129,10 +136,10 @@ public class AdminCommand implements Callable<Integer> {
     switch (command) {
       case PAUSE:
         coordinator.pause(!noWait, maxPauseWaitTime);
-        System.out.println("Pause completed at " + getCurrentTimeWithFormat());
+        logger.info("Pause completed at {}", getCurrentTimeWithFormat());
         break;
       case UNPAUSE:
-        System.out.println("Unpause started at " + getCurrentTimeWithFormat());
+        logger.info("Unpause started at {}", getCurrentTimeWithFormat());
         coordinator.unpause();
         break;
       case CHECK_PAUSED:
@@ -149,7 +156,7 @@ public class AdminCommand implements Callable<Integer> {
     StringWriter stringWriter = new StringWriter();
     JsonWriter jsonWriter = writerFactory.createWriter(stringWriter);
     jsonWriter.writeObject(json);
-    System.out.println(stringWriter.toString().trim());
+    logger.info(stringWriter.toString().trim());
   }
 
   static String getCurrentTimeWithFormat() {
