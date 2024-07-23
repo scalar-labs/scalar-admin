@@ -111,8 +111,8 @@ public class AdminCommand implements Callable<Integer> {
       throw new IllegalArgumentException(
           "It's required to specify only either [--srv-service-url, -s] or [--addresses, -a].");
     } else if (srvServiceUrl != null) {
-      logger.error(
-          "Warning: --srv-service-url, -s will be deprecated in the future. We recommend using"
+      logger.warn(
+          "--srv-service-url, -s will be deprecated in the future. We recommend using"
               + " --addresses, -a instead.");
       coordinator = createCoordinator(srvServiceUrl);
     } else { // addresses != null
