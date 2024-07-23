@@ -37,7 +37,7 @@ public class AdminCommand implements Callable<Integer> {
   @CommandLine.Option(
       names = {"--srv-service-url", "-s"},
       paramLabel = "SRV_SERVICE_URL",
-      description = "A service URL of SRV record.")
+      description = "A service URL of SRV record. (deprecated)")
   private String srvServiceUrl;
 
   @CommandLine.Option(

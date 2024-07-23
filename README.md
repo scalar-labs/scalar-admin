@@ -1,7 +1,7 @@
 # scalar-admin
 
-scalar-admin is an admin interface and client tool for Scalar services such as [Scalar DL](https://github.com/scalar-labs/scalardl) and [Scalar DB](https://github.com/scalar-labs/scalardb) applications. 
-It will help you to pause Scalar DL Ledger cluster or Scalar DB server cluster to create a transactionally-consistent backup.
+scalar-admin is an admin interface and client tool for Scalar services such as [ScalarDL](https://github.com/scalar-labs/scalardl) and [ScalarDB](https://github.com/scalar-labs/scalardb) applications.
+It will help you to pause ScalarDL Ledger, ScalarDL Auditor, and ScalarDB Cluster to create a transactionally-consistent backup.
 
 ## scalar-admin client tool
 
@@ -39,9 +39,21 @@ $ ./gradlew docker
 
 You can run the fat jar as follows.
 
+
+```console
+$ java -jar scalar-admin-<version>-all.jar -c <COMMAND> -a <IP1:Port1,IP2:Port2,...>
+```
+
+**NOTE** If you previously used the following command, we recommend using the `-a` option instead since SRV has a known issue of returning asynchronous results. We will deprecate the `-s` option in the next major version.
+
 ```console
 $ java -jar scalar-admin-<version>-all.jar -c <COMMAND> -s <SRV_SERVICE_URL>
 ```
+
+#### Use in Kubernetes clusters
+
+Using Scalar Admin in a Kubernetes cluster is error-prone because Scalar Admin doesn't check for orchestration changes.
+We recommend using [Scalar Admin for Kubernetes](https://github.com/scalar-labs/scalar-admin-for-kubernetes) for backup operations.
 
 #### Docker container
 
