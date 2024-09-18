@@ -121,7 +121,7 @@ targetCompatibility = 1.8
 
 group = "com.scalar-labs"
 archivesBaseName = "scalar-admin"
-version = "2.2.0"
+version = "2.2.1"
 
 // for archiving and uploading to maven central
 if (!project.gradle.startParameter.taskNames.isEmpty() &&
