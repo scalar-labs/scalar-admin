@@ -52,6 +52,12 @@ protobuf {
     generatedFilesBaseDir = "$projectDir/src"
 }
 
+// The processResources task needs to depend on the generateProto task because it uses the output
+// of the the generateProto task
+processResources {
+    dependsOn generateProto
+}
+
 task AdminCommand(type: CreateStartScripts) {
     mainClassName = 'com.scalar.admin.AdminCommand'
     applicationName = 'scalar-admin'
@@ -86,6 +92,14 @@ distZip {
 distTar {
     archiveFileName = "${project.name}.tar"
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
+
+installDist {
+    duplicatesStrategy DuplicatesStrategy.EXCLUDE
+}
+
+sourcesJar {
+    duplicatesStrategy DuplicatesStrategy.EXCLUDE
 }
 
 docker {
