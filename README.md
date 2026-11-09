@@ -69,6 +69,13 @@ If you want to use the `scalar-admin` container on kubernetes, you can do it as 
 $ kubectl run <NAME> -it --image=ghcr.io/scalar-labs/scalar-admin:<version> --restart=Never --rm -- -c <COMMAND> -s <SRV_SERVICE_URL>
 ```
 
+**NOTE** The `scalar-admin` container runs as a non-root user (UID `201`, GID `201`). If you pass a CA root certificate file to the container by using the `--ca-root-cert-path` option, the mounted file must be readable by UID `201`. For example:
+
+* Docker: make sure the file on the host is readable by UID `201` (e.g., `chmod 0444 <CA_ROOT_CERT_FILE>`) before mounting it with `-v`.
+* Kubernetes: set `defaultMode` of the volume to a value that is readable by UID `201` (e.g., `0444`), or set `securityContext.fsGroup: 201` in the pod spec.
+
+Alternatively, you can pass the certificate as a string by using the `--ca-root-cert-pem` option, which does not require a mounted file.
+
 ## Implement server-side code
 
 To make your services accessible from scalar-admin tool, you need to implement server-side code based on the admin interface defined in [admin.proto](src/main/proto/scalar/protobuf/admin.proto).
