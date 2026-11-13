@@ -1,0 +1,42 @@
+name: Vulnerability Check
+
+on:
+  workflow_call:
+    inputs:
+      target-ref:
+        description: 'Target ref (branch, tag, release) to scan'
+        required: false
+        type: string
+        default: 'main'
+      find-latest-release:
+        description: 'Flag to find the latest version for specified `target-ref`'
+        required: false
+        type: boolean
+        default: false
+      java-versions:
+        description: 'Java version to use for building'
+        required: false
+        type: number
+        default: 8
+    secrets:
+      SLACK_SECURITY_WEBHOOK_URL:
+        required: false
+
+jobs:
+  call-vuln-check:
+    uses: scalar-labs/actions/.github/workflows/vuln-check-reusable.yaml@main
+    with:
+      target-ref: ${{ inputs.target-ref }}
+      find-latest-release: ${{ inputs.find-latest-release }}
+      images: '[["Scalar Admin", "scalar-admin"]]'
+      # This repository is a single-project Gradle build, so the default version command of the
+      # reusable workflow (`./gradlew :common:properties ...`) doesn't work.
+      version-command: "./gradlew properties -q | grep '^version:' | awk '{print $2}'"
+      # `./gradlew docker` builds the image as `scalar-admin:latest`, but the reusable workflow
+      # scans `ghcr.io/scalar-labs/<image>:<version>`. So, we tag the image after building it.
+      docker-build-command: |
+        ./gradlew docker
+        docker tag scalar-admin:latest "ghcr.io/scalar-labs/scalar-admin:$(./gradlew properties -q | grep '^version:' | awk '{print $2}')"
+      java-versions: ${{ inputs.java-versions }}
+    secrets:
+      SLACK_SECURITY_WEBHOOK_URL: ${{ secrets.SLACK_SECURITY_WEBHOOK_URL }}
