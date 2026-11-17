@@ -16,8 +16,8 @@ on:
       java-versions:
         description: 'Java version to use for building'
         required: false
-        type: number
-        default: 8
+        type: string
+        default: '8'
     secrets:
       SLACK_SECURITY_WEBHOOK_URL:
         required: false

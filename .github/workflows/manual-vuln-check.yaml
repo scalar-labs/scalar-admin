@@ -15,8 +15,8 @@ on:
       java-versions:
         description: 'Java version to use for building'
         required: false
-        type: number
-        default: 8
+        type: string
+        default: '8'
 
 jobs:
   call-vuln-check:
@@ -24,4 +24,4 @@ jobs:
     with:
       target-ref: ${{ inputs.target-ref || github.ref_name }}
       find-latest-release: ${{ inputs.find-latest-release }}
-      java-versions: ${{ fromJSON(inputs.java-versions) }}
+      java-versions: ${{ inputs.java-versions }}
